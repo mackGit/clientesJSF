@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="../resources/template.xhtml">
+	<ui:param name="titulo" value="Manutenção de Usuarios" />
+	<ui:define name="conteudo">
+	    <center>
+                <h:form id="form" >
+                    <p:growl id="msgs" severity="info, warn, error, fatal" autoUpdate="true" showDetail="true" />
+                    <!-- Datatable: Botão Add -->
+                        <!-- resetValues: Reseta a validação dos campos -->
+                     <p:commandButton style="font-size:14px;" value="Novo Usuário"
+                                      icon="ui-icon ui-icon-plus"
+                                      oncomplete= "PF('usuarioAddDialog').show()" 
+                                      resetValues="true" immediate="true"
+                                      update=":formAdd:usuarioAdd"
+                                      actionListener="#{usuarioBean.limparCamposUsuarioBean()}"/>
+                    
+                    <!-- Datatable -->
+                    <p:dataTable  id="listUsuarioDataTable" value="#{usuarioBean.usuarios}" 
+                                  var="usuario" paginator="true" rows="10"
+                                  style="margin: 20px 100px 20px 100px;" >
+                        
+                        <f:facet name="header">
+                                Lista de Usuarios
+                        </f:facet>
+                        
+                        <!-- Datatable: Colunas -->
+                        <p:column headerText="ID" width="10%">
+                            <p:outputLabel value="#{usuario.idUsuario}" />
+                        </p:column>
+                        <p:column headerText="Nome" width="20%">
+                            <p:outputLabel value="#{usuario.nomeUsuario}"/>
+                        </p:column>
+                        <p:column headerText="Login" width="15%">
+                            <p:outputLabel value="#{usuario.loginUsuario}"/>
+                        </p:column>
+                        <p:column headerText="E-mail" width="25%" >
+                            <p:outputLabel value="#{usuario.emailUsuario}"/>
+                        </p:column>
+                        
+                        
+                        <!-- Datatable: Ações -->
+                        <p:column headerText="Ações" style="" exportable="false" width="20%">
+                            <center>                           
+                                <p:commandButton icon="ui-icon-pencil" update=":formEditar:usuarioEdit" oncomplete="PF('usuarioEditDialog').show()">
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
+                                </p:commandButton>
+                                
+                                <p:commandButton icon="ui-icon-trash" update=":usuarioRemove" oncomplete="PF('usuarioRemoveDialog').show()">
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
+                                </p:commandButton>
+                            </center>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                    
+                    
+                    
+                    <!-- Caixa Dialogo ADICIONAR Usuario -->
+                <p:dialog closeOnEscape="true" style="alignment-adjust: central;" widgetVar="usuarioAddDialog" resizable="false">
+                    <h:form id="formAdd">
+                        <p:outputPanel id="usuarioAdd">
+                            <p:panel>
+                                <p:panel>
+                                    <p:panelGrid  columns="4" >
+
+                                        <f:facet name="header">
+                                            <p:outputLabel style="font-weight: bold" value="Informações do Usuario"/>
+                                        </f:facet>
+
+                                        <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Nome: "/>
+                                        <p:inputText id="nomeTxt" value="#{usuarioBean.obj.nomeUsuario}" required="true"/>
+
+                                        <p:outputLabel for="loginTxt" style="font-weight: bold" value="Login: "/>
+                                        <p:inputText id="loginTxt" value="#{usuarioBean.obj.loginUsuario}" required="true"/>
+
+                                        <p:outputLabel for="emailTxt" style="font-weight: bold" value="E-mail: "/>
+                                        <p:inputText id="emailTxt" value="#{usuarioBean.obj.emailUsuario}">
+                                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                        </p:inputText>
+
+                                        <p:outputLabel for="senhaTxt1" style="font-weight: bold" value="Senha: "/>
+                                        <p:password id="senhaTxt1" value="#{usuarioBean.obj.senhaUsuario}" feedback="true"
+                                                    match="senhaTxt2" label="senhaTxt1" required="true" />
+                                        
+                                        <p:outputLabel for="senhaTxt2" style="font-weight: bold" value="Senha: "/>
+                                        <p:password id="senhaTxt2" value="#{usuarioBean.obj.senhaUsuario}" label="senhaTxt2"
+                                                    required="true"/>
+                                    </p:panelGrid>
+                                </p:panel>
+                                <br/>
+                                <center>
+                                    <p:commandButton value="Adicionar" icon="ui-icon-plus"
+                                                     actionListener="#{usuarioBean.adicionarUsuarioBean()}"
+                                                     oncomplete="if(!args.validationFailed) PF('usuarioAddDialog').hide()"
+                                                     update=":form:listUsuarioDataTable :formAdd:usuarioAdd" 
+                                                     />
+                                </center>
+                            </p:panel>
+                        </p:outputPanel>
+                    </h:form>
+                </p:dialog>
+                    
+                    
+                    
+                    
+                    <!-- Caixa Dialogo EDITAR Usuario -->
+                
+                <p:dialog closeOnEscape="true" style="alignment-adjust: central;" widgetVar="usuarioEditDialog" resizable="false">
+                    <h:form id="formEditar">
+                        <p:outputPanel id="usuarioEdit" >
+                            <p:panel>
+                                <p:panel>
+                                    <p:panelGrid  columns="4" rendered="#{not empty usuarioBean.selectedObj}">
+                               
+                                        <f:facet name="header">
+                                            <p:outputLabel style="font-weight: bold" value="Edição de Usuarios "/>
+                                        </f:facet>
+
+                                        <p:outputLabel style="font-weight: bold" value="ID: "/>
+                                        <p:inputText value="#{usuarioBean.selectedObj.idUsuario}" disabled="true"/>
+
+                                        <p:outputLabel style="font-weight: bold" value="Nome: "/>
+                                        <p:inputText value="#{usuarioBean.selectedObj.nomeUsuario}" required="true"/>
+
+                                        <p:outputLabel style="font-weight: bold" value="Login: "/>
+                                        <p:inputText value="#{usuarioBean.selectedObj.loginUsuario}" required="true"/>
+
+                                        <p:outputLabel style="font-weight: bold" value="E-mail: "/>
+                                        <p:inputText value="#{usuarioBean.selectedObj.emailUsuario}">
+                                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                        </p:inputText>
+
+                                        <p:outputLabel for="senhaTxt1" style="font-weight: bold" value="Senha: "/>
+                                        <p:password id="senhaTxt1" value="#{usuarioBean.selectedObj.senhaUsuario}" feedback="true"
+                                                    match="senhaTxt2" label="senhaTxt1" required="true"/>
+                                        
+                                        <p:outputLabel for="senhaTxt2" style="font-weight: bold" value="Senha: "/>
+                                        <p:password id="senhaTxt2" value="#{usuarioBean.selectedObj.senhaUsuario}" feedback="true"
+                                                    match="senhaTxt2" label="senhaTxt2" required="true"/>
+
+                                        
+                                    </p:panelGrid>
+                                </p:panel>
+                                <br/>
+                                <center>
+                                    <f:facet name="footer">
+                                        <center>
+                                            <p:commandButton value="Atualizar" icon="ui-icon-check"
+                                                             action="#{usuarioBean.atualizarUsuarioBean}"
+                                                             oncomplete="if(!args.validationFailed) PF('usuarioEditDialog').hide()"
+                                                             update=":form:listUsuarioDataTable :formEditar:usuarioEdit" />
+                                            
+                                            <p:commandButton value="Cancelar" icon="ui-icon-closethick" immediate="true"
+                                                             oncomplete="PF('usuarioEditDialog').hide()"
+                                                             update=":form:listUsuarioDataTable" 
+                                                             action="#{usuarioBean.cancelAtualizarUsuarioBean()}"
+                                                             />
+                                        </center>
+                                    </f:facet>
+                                </center>
+                            </p:panel>
+                        </p:outputPanel>
+                    </h:form>
+                </p:dialog>
+                    
+                    
+                    <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Usuario -->
+                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" 
+                                     message="Deseja realmente apagar o usuario #{usuarioBean.selectedObj.nomeUsuario}?" severity="alert" >
+                            <h:form id="formExcluir">
+                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioBean()}"
+                                             oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"/>
+                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{usuarioBean.cancelRemoverUsuarioBean()}"
+                                             oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"
+                                             immediate="true"/>
+                            </h:form>
+                    </p:confirmDialog>
+                
+            </center>
+	</ui:define>
+</ui:composition>
+</html>

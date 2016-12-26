@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    
+<!-- Botão Clientes -->
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+                <from-outcome>usuarios</from-outcome>
+                <to-view-id>/pages/pageUsuarios.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+                <from-outcome>clientes</from-outcome>
+                <to-view-id>/pages/pageClientes.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+                <from-outcome>livros</from-outcome>
+                <to-view-id>/pages/pageClientes.xhtml</to-view-id>
+        </navigation-case>
+        
+    </navigation-rule>
+    
+<!-- Botão Add Cliente -->
+    <navigation-rule>
+        <from-view-id>*</from-view-id>  
+            <navigation-case>  
+                <from-outcome>clientesAdd</from-outcome>  
+                <to-view-id>/pageClientesAdd</to-view-id>  
+            </navigation-case> 
+    </navigation-rule>
+</faces-config>
