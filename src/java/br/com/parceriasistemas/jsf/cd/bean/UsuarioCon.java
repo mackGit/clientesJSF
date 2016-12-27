@@ -126,10 +126,15 @@ public class UsuarioCon implements Serializable{
     
     public void atualizarUsuarioBean () {
         String nomeUsuarioAtualizar = selectedObj.getNomeUsuario();
+        // verifica se o id do usuário logado é o mesmo do usuário a ser atualizado, se for, atualiza o nome na "sessão"
         try {
             if(idUsuarioLogado==selectedObj.getIdUsuario()) {
                 nomeUsuarioLogado = selectedObj.getNomeUsuario();
             }
+            
+            String encrypt = DigestUtils.md5Hex(selectedObj.getSenhaUsuario());
+            // criptografa a senha
+            selectedObj.setSenhaUsuario(encrypt);
             dao.atualizarUsuarioBanco(selectedObj);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioAtualizar + " Atualizado!." ));
         } catch (Exception e) {

@@ -12,59 +12,68 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
 
-<h:head>
+
+
     
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-    <title>Minha Aplicacao</title>
-    <h:outputStylesheet library="css" name="style.css"  />
-</h:head>
-<h:body rendered="#{usuarioBean.verificarSessao()}">
-    
-    <!--
-    <p:layout fullPage="true">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <title>Minha Aplicacao</title>
+        <h:outputStylesheet library="css" name="style.css"  />
+    </h:head>
+    <h:body rendered="#{usuarioBean.verificarSessao()}">
         
-    </p:layout>
-    -->
+        
+    <p:layout fullPage="true">
     
-    <table width="100%" border="1">
-        <tr>
-            <td align="center"><h2>#{titulo}</h2></td>
-        </tr>
-        <tr>
-            <td align="center">
-                <p:link value="Usuários" outcome="usuarios"/> | 
-                <p:link value="Clientes" outcome="clientes"/> |
-                <p:link value="Livros" outcome="livros"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
+        <p:layoutUnit position="north" size="200"  resizable="false" closable="false" collapsible="false" >
+            <div class="col-6">
+                <div class="divTitulo">
+                    <h2>#{titulo}</h2>
+                </div>
+                <p:spacer/>
+                
+                    <div class="col-1">as </div>
+                        <div class="col-1">
+                            <p:link value="Usuários" outcome="usuarios"/> | 
+                            <p:link value="Clientes" outcome="clientes"/> |
+                            <p:link value="Livros"   outcome="livros"/>
+                        </div>
+                    <div class="col-1">as </div>
+
                 <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
-                <p:spacer/>
-                <center>
-                    <h:form class="botaoLogout">
-                        <p:commandButton class="botaoLogout" value="Logout" ajax="false" action="#{usuarioBean.encerrarSessao()}" styleClass="styleGreen"/> 
-                    </h:form>
-                </center>
-                <p:spacer/>
-            </td>
-        </tr>
-    </table>
+                <h:form class="botaoLogout">
+                    <h:commandLink class="botaoLogout" value="Logout" action="#{usuarioBean.encerrarSessao()}" styleClass="styleGreen"/> 
+                </h:form>
+            </div>
+        </p:layoutUnit>
+        <br />
+        
+        
+        
+        
+        
+        <p:layoutUnit position="center">
+            <table width="100%" border="0">
+                <tr>
+                    <td>
+                        <ui:insert name="conteudo"/>
+                    </td>
+                </tr>
+            </table>
+        </p:layoutUnit>
+        
+        <br />
+        
+        <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
+            <table width="100%" border="1">
+                <tr>
+                    <td align="center" class="botaoLogout">Todos os direitos reservados</td>
+                </tr>
+            </table>
+        </p:layoutUnit>
+        
     
-    <br />
-    <table width="100%" border="0">
-        <tr>
-            <td>
-                <ui:insert name="conteudo"/>
-            </td>
-        </tr>
-    </table>
-    <br />
-    <table width="100%" border="1">
-        <tr>
-            <td align="center" class="botaoLogout">Todos os direitos reservados</td>
-        </tr>
-    </table>
-</h:body>
+</p:layout>
+    </h:body>
 </html>
 

@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -67,6 +68,12 @@ public class UsuarioDao {
        }
     }
     
+    /*
+    String encript = DigestUtils.md5Hex(this.obj.getSenhaUsuario());
+            this.obj.setSenhaUsuario(encript);
+    
+    */
+    
     
     public void adicionarUsuarioBanco (Usuario u) {
         try {
@@ -77,7 +84,9 @@ public class UsuarioDao {
             usuario.setNomeUsuario(u.getNomeUsuario());
             usuario.setLoginUsuario(u.getLoginUsuario());
             usuario.setEmailUsuario(u.getEmailUsuario());
-            usuario.setSenhaUsuario(u.getSenhaUsuario());
+            /* add senha criptografada */
+            String encript = DigestUtils.md5Hex(u.getSenhaUsuario());
+            usuario.setSenhaUsuario(encript);
 
             sessao.save(usuario);
             tr.commit();
