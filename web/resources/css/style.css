@@ -8,35 +8,10 @@ and open the template in the editor.
     Author     : matheus
 */
 
-form .styleGreen {    
-    
-}
-
 .divTitulo {
     text-align: center;
 }
 
-.divNorth {
-    
-}
-
-
-// cols
-.col-1{
-    width: 16.66%; 
-}
-.col-2{
-    width: 33.33%; 
-}
-.col-3{
-    width: 50%; 
-}
-.col-4{
-    width: 66.664%;
-}
-.col-5{
-    width: 83.33%;
-}
-.col-6{
-    width: 100%;
+.divBoasVindas {
+    margin-top: 20px;
 }

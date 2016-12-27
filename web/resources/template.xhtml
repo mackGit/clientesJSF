@@ -19,37 +19,38 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Minha Aplicacao</title>
         <h:outputStylesheet library="css" name="style.css"  />
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
-        
-        
-    <p:layout fullPage="true">
-    
-        <p:layoutUnit position="north" size="200"  resizable="false" closable="false" collapsible="false" >
-            <div class="col-6">
-                <div class="divTitulo">
-                    <h2>#{titulo}</h2>
+        <p:layout fullPage="true">
+            
+            <div class="top-header">
+                <div class="container">
+                    <div class="top-header-main">
+            
+                        <p:layoutUnit position="north" size="162"  resizable="false" closable="false" collapsible="false" >
+                            <center>
+                                <h2>#{titulo}</h2>
+                            </center>
+                            
+                            <center>
+                                <p:link value="Usuários" outcome="usuarios"/> | 
+                                <p:link value="Clientes" outcome="clientes"/> |
+                                <p:link value="Livros"   outcome="livros"/>
+                            </center>
+                            <br/>
+                            <center>
+                                <div class="divBoasVindas">
+                                    <h:form class="boasVindas">
+                                        <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
+                                        <h:commandLink class="boasVindas" value="Logout" action="#{usuarioBean.encerrarSessao()}" styleClass="styleGreen"/> 
+                                    </h:form>
+                                </div>
+                            </center>
+                        </p:layoutUnit><br/>
+                    </div>
                 </div>
-                <p:spacer/>
-                
-                    <div class="col-1">as </div>
-                        <div class="col-1">
-                            <p:link value="Usuários" outcome="usuarios"/> | 
-                            <p:link value="Clientes" outcome="clientes"/> |
-                            <p:link value="Livros"   outcome="livros"/>
-                        </div>
-                    <div class="col-1">as </div>
-
-                <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
-                <h:form class="botaoLogout">
-                    <h:commandLink class="botaoLogout" value="Logout" action="#{usuarioBean.encerrarSessao()}" styleClass="styleGreen"/> 
-                </h:form>
             </div>
-        </p:layoutUnit>
-        <br />
-        
-        
-        
         
         
         <p:layoutUnit position="center">
@@ -64,10 +65,10 @@ and open the template in the editor.
         
         <br />
         
-        <p:layoutUnit position="south" size="100" header="Bottom" resizable="true" closable="true" collapsible="true">
+        <p:layoutUnit position="south" size="100"  footer="Rodapé" style="text-align: center;" resizable="false" closable="false" collapsible="false">
             <table width="100%" border="1">
                 <tr>
-                    <td align="center" class="botaoLogout">Todos os direitos reservados</td>
+                    <td align="center" class="boasVindas">Todos os direitos reservados</td>
                 </tr>
             </table>
         </p:layoutUnit>
