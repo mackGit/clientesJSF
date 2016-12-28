@@ -19,25 +19,21 @@ and open the template in the editor.
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Minha Aplicacao</title>
-        <h:outputStylesheet library="css" name="bootstrap.css"/>
         <h:outputStylesheet library="css" name="style.css"  />
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
             
-            <div class="top-header">
-                <div class="container">
-                    <div class="top-header-main">
-            
-                        <p:layoutUnit position="north" size="162"  resizable="false" closable="false" collapsible="false" >
+                        <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false" >
                             <center>
                                 <h2>#{titulo}</h2>
                             </center>
                             
                             <center>
-                                <p:link value="Usuários" outcome="usuarios"/> | 
+                                <p:link value="UsuÃ¡rios" outcome="usuarios"/> | 
                                 <p:link value="Clientes" outcome="clientes"/> |
                                 <p:link value="Livros"   outcome="livros"/>
+                                
                             </center>
                             <br/>
                             <div class="divBoasVindas">
@@ -55,9 +51,7 @@ and open the template in the editor.
                                 </center>
                             </div>
                         </p:layoutUnit><br/>
-                    </div>
-                </div>
-            </div>
+                        
         
         
         <p:layoutUnit position="center">
@@ -85,7 +79,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="Não" icon="ui-icon-closethick"
+            <p:commandButton value="NÃ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>

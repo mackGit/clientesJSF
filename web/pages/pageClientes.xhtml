@@ -42,10 +42,6 @@ and open the template in the editor.
                             </p:outputPanel>
                         </f:facet>
                         
-                        
- 
-                        
-                        
                         <!-- Datatable: Colunas -->
                         <p:column filterBy="#{cliente.idCliente}" headerText="ID" width="15%" footerText="ID" filterMatchMode="contains">
                             <p:outputLabel value="#{cliente.idCliente}" />
@@ -109,7 +105,6 @@ and open the template in the editor.
                                         <f:facet name="header">
                                             <p:outputLabel style="font-weight: bold" value="Informações do Cliente"/>
                                         </f:facet>
-
 
                                         <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Nome: "/>
                                         <p:inputText id="nomeTxt" value="#{clienteBean.obj.nomeCliente}" required="true" />
@@ -182,82 +177,61 @@ and open the template in the editor.
                     
                     
                     <!-- Caixa Dialogo DETALHES Cliente -->
-                <p:dialog closeOnEscape="true" style="alignment-adjust: central;"  widgetVar="clienteDetailDialog" resizable="false">
+                <p:dialog closeOnEscape="true" widgetVar="clienteDetailDialog" resizable="false">
                     <h:form id="formDetalhes"> 
                         <p:outputPanel id="clienteDetail" >
-                            <p:panelGrid  columns="1" rendered="#{not empty clienteBean.selectedObj}" columnClasses="label,value">
+                            <p:panelGrid  columns="1" rendered="#{not empty clienteBean.selectedObj}">
                                 
-                                <f:facet name="header">
-                                    <p:outputLabel style="font-weight: bold" value="Detalhes"/>
-                                </f:facet>
                                 
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold; " value="ID: "/>
-                                    <p:outputLabel value="#{clienteBean.selectedObj.idCliente}" />
-                                </p:column>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="ID: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.idCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Nome: "/></p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.nomeCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="CPF/CNPJ: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.cpfCnpjCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Bairro: "/></p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.bairroCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Endereço: "/></p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.enderecoCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Número: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.numeroCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Complemento: "/></p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.complementoCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="E-mail "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.emailCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Tel Celular: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.telCelularCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Tel Comercial: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.telComercialCliente}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="St Cliente: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.stClienteString}"/> </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>   <h:outputText style="font-weight: bold" value="Cidade: "/> </p:column>
+                                    <p:column style="font-weight: normal"> <h:outputText value="#{clienteBean.selectedObj.cidadeCliente}"/> </p:column>
+                                </p:row>
                                 
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Nome: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.nomeCliente}"/>
-                                </p:column>
-                                    
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="CPF/CNPJ: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.cpfCnpjCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Bairro: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.bairroCliente}"/>
-                                    
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Endereço: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.enderecoCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Número: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.numeroCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Complemento: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.complementoCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="E-mail: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.emailCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Telefone Celular: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.telCelularCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Telefone Comercial: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.telComercialCliente}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Situação: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.stClienteString}"/>
-                                </p:column>
-                                
-                                <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="Cidade: " />
-                                    <h:outputText value="#{clienteBean.selectedObj.cidadeCliente.nomeCidade}"/>
-                                </p:column>
-                                
-                                <f:facet name="footer">
-                                    <center>
-                                        <p:commandLink   value="Fechar" oncomplete="PF('clienteDetailDialog').hide()" >
-                                        </p:commandLink>
-                                    </center>
-                                </f:facet>
                             </p:panelGrid>
                         </p:outputPanel>
                     </h:form>
@@ -271,106 +245,99 @@ and open the template in the editor.
                     <h:form id="formEditar">
                         <p:outputPanel id="clienteEdit" >
                             <p:panel>
-                                <p:panel>
-                                    <p:panelGrid  columns="4" rendered="#{not empty clienteBean.selectedObj}">
+                                <p:panelGrid  columns="4" rendered="#{not empty clienteBean.selectedObj}">
                                
-                                        <f:facet name="header">
-                                            <p:outputLabel style="font-weight: bold" value="Edição de Clientes "/>
-                                        </f:facet>
+                                    <f:facet name="header">
+                                        <p:outputLabel style="font-weight: bold" value="Edição de Clientes "/>
+                                    </f:facet>
 
-                                        <p:outputLabel style="font-weight: bold" value="ID: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.idCliente}" disabled="true"/>
+                                    <p:outputLabel style="font-weight: bold" value="ID: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.idCliente}" disabled="true"/>
 
-                                        <p:outputLabel style="font-weight: bold" value="Nome: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.nomeCliente}" required="true"/>
+                                    <p:outputLabel style="font-weight: bold" value="Nome: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.nomeCliente}" required="true"/>
 
-                                        <p:outputLabel style="font-weight: bold" value="CPF/CNPJ: "/>
-                                        <p:inputMask value="#{clienteBean.selectedObj.cpfCnpjCliente}" mask="999-999-999.99" required="true"/>
+                                    <p:outputLabel style="font-weight: bold" value="CPF/CNPJ: "/>
+                                    <p:inputMask value="#{clienteBean.selectedObj.cpfCnpjCliente}" mask="999-999-999.99" required="true"/>
 
-                                        <p:outputLabel style="font-weight: bold" value="Data de Nascimento: "/>
-                                        <p:calendar value="#{clienteBean.selectedObj.dtNascimentoCliente}" pattern="dd-MM-yyyy" mask="true" />
+                                    <p:outputLabel style="font-weight: bold" value="Data de Nascimento: "/>
+                                    <p:calendar value="#{clienteBean.selectedObj.dtNascimentoCliente}" pattern="dd-MM-yyyy" mask="true" />
+
+                                    <p:outputLabel style="font-weight: bold" value="E-mail: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.emailCliente}">
+                                        <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                    </p:inputText>
+
+                                    <p:outputLabel style="font-weight: bold" value="Telefone Celular: "/>
+                                    <p:inputMask value="#{clienteBean.selectedObj.telCelularCliente}" mask="(99)9999-9999"/>
+
+                                    <p:outputLabel style="font-weight: bold" value="Telefone Comercial: "/>
+                                    <p:inputMask value="#{clienteBean.selectedObj.telComercialCliente}" mask="(99)9999-9999"/>
+
+                                    <p:outputLabel style="font-weight: bold" value="Cidade: " />
+                                    <p:selectOneMenu id="cidadeMenu" value="#{clienteBean.selectedObj.cidadeCliente}">
+                                        <f:selectItem  itemLabel="Selecione..." itemValue="" rendered="clienteBean.selectedObj.cidadeCliente = ''"/>
+                                        <f:selectItems value="#{cidadeBean.cidades}" var="cidadeMenu" itemLabel="#{cidadeMenu.nomeCidade}" noSelectionValue="true"/>
+                                    </p:selectOneMenu>
                                         
-                                        <p:outputLabel style="font-weight: bold" value="E-mail: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.emailCliente}">
-                                            <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
-                                        </p:inputText>
-
-                                        <p:outputLabel style="font-weight: bold" value="Telefone Celular: "/>
-                                        <p:inputMask value="#{clienteBean.selectedObj.telCelularCliente}" mask="(99)9999-9999"/>
-
-                                        <p:outputLabel style="font-weight: bold" value="Telefone Comercial: "/>
-                                        <p:inputMask value="#{clienteBean.selectedObj.telComercialCliente}" mask="(99)9999-9999"/>
-                                        
-                                        <p:outputLabel style="font-weight: bold" value="Cidade: " />
-                                        <p:selectOneMenu id="cidadeMenu" value="#{clienteBean.selectedObj.cidadeCliente}">
-                                            <f:selectItem  itemLabel="Selecione..." itemValue="" rendered="clienteBean.selectedObj.cidadeCliente = ''"/>
-                                            <f:selectItems value="#{cidadeBean.cidades}" var="cidadeMenu" itemLabel="#{cidadeMenu.nomeCidade}" noSelectionValue="true"/>
-                                        </p:selectOneMenu>
-                                        
-                                    </p:panelGrid>
-                                    <br/>
-                                    <center>
-                                        <p:outputLabel for="situacaoTxt" style="font-weight: bold" value="Situação: "/>
-                                        <p:selectBooleanCheckbox id="situacaoTxt" value="#{clienteBean.selectedObj.stCliente}"/>
-                                    </center>
-                                </p:panel>
-                                <br/>
-                                <p:panel>
-                                    <p:panelGrid  columns="4">
-
-                                        <f:facet name="header">
-                                            <p:outputLabel style="font-weight: bold" value="Endereço do Cliente"/>
-                                        </f:facet>
-                                        
-
-                                        <p:outputLabel style="font-weight: bold" value="Bairro: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.bairroCliente}"/>
-
-                                        <p:outputLabel style="font-weight: bold" value="Endereço: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.enderecoCliente}"/>
-
-                                        <p:outputLabel style="font-weight: bold" value="Número: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.numeroCliente}"/>
-
-                                        <p:outputLabel style="font-weight: bold" value="Complemento: "/>
-                                        <p:inputText value="#{clienteBean.selectedObj.complementoCliente}"/>
-                                        
-                                    </p:panelGrid>
-                                </p:panel>
+                                </p:panelGrid>
                                 <br/>
                                 <center>
-                                    <f:facet name="footer">
-                                        <center>
-                                            <p:commandButton value="Atualizar" icon="ui-icon-check"
-                                                             action="#{clienteBean.atualizarClienteBean}"
-                                                             oncomplete="if(!args.validationFailed) PF('clienteEditDialog').hide()"
-                                                             update=":form:listClienteDataTable :formEditar:clienteEdit" />
-                                            
-                                            <p:commandButton value="Cancelar" icon="ui-icon-closethick" immediate="true"
-                                                             oncomplete="PF('clienteEditDialog').hide()"
-                                                             update=":form:listClienteDataTable" 
-                                                             action="#{clienteBean.cancelAtualizarClienteBean()}"
-                                                             />
-                                        </center>
-                                    </f:facet>
+                                    <p:outputLabel for="situacaoTxt" style="font-weight: bold" value="Situação: "/>
+                                    <p:selectBooleanCheckbox id="situacaoTxt" value="#{clienteBean.selectedObj.stCliente}"/>
                                 </center>
+                            </p:panel>
+                            <br/>
+                            <p:panel>
+                                <p:panelGrid  columns="4">
+
+                                    <f:facet name="header">
+                                        <p:outputLabel style="font-weight: bold" value="Endereço do Cliente"/>
+                                    </f:facet>
+
+
+                                    <p:outputLabel style="font-weight: bold" value="Bairro: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.bairroCliente}"/>
+
+                                    <p:outputLabel style="font-weight: bold" value="Endereço: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.enderecoCliente}"/>
+
+                                    <p:outputLabel style="font-weight: bold" value="Número: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.numeroCliente}"/>
+
+                                    <p:outputLabel style="font-weight: bold" value="Complemento: "/>
+                                    <p:inputText value="#{clienteBean.selectedObj.complementoCliente}"/>
+
+                                </p:panelGrid>
+                            </p:panel>
+                            <br/>
+                            <p:panel>
+                                <p:commandButton value="Atualizar" icon="ui-icon-check"
+                                                 action="#{clienteBean.atualizarClienteBean}"
+                                                 oncomplete="if(!args.validationFailed) PF('clienteEditDialog').hide()"
+                                                 update=":form:listClienteDataTable :formEditar:clienteEdit" />
+
+                                <p:commandButton value="Cancelar" icon="ui-icon-closethick" immediate="true"
+                                                 oncomplete="PF('clienteEditDialog').hide()"
+                                                 update=":form:listClienteDataTable" 
+                                                 action="#{clienteBean.cancelAtualizarClienteBean()}"
+                                                 />
                             </p:panel>
                         </p:outputPanel>
                     </h:form>
                 </p:dialog>
                     
-                    
-                    <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Cliente -->
-                    <p:confirmDialog id="clienteRemove" widgetVar="clienteRemoveDialog" header="Remoção de usuário" 
-                                     message="Deseja realmente apagar o cliente #{clienteBean.selectedObj.nomeCliente}?" severity="alert" >
-                            <h:form id="formExcluir">
-                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{clienteBean.removerClienteBean()}"
-                                             oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable"/>
-                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{clienteBean.cancelRemoverClienteBean()}"
-                                             oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable"
-                                             immediate="true"/>
-                            </h:form>
-                    </p:confirmDialog>
+                <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Cliente -->
+                <p:confirmDialog id="clienteRemove" widgetVar="clienteRemoveDialog" header="Remoção de usuário"  global="true"
+                                 message="Deseja realmente apagar o cliente #{clienteBean.selectedObj.nomeCliente}?" severity="alert" closable="true" closeOnEscape="true" >
+                    <h:form id="formExcluir">
+                        <p:commandButton value="Sim" icon="ui-icon-check" action="#{clienteBean.removerClienteBean()}"
+                                         oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable" styleClass="ui-confirmdialog-yes" />
+                        <p:commandButton value="Não" icon="ui-icon-closethick" action="#{clienteBean.cancelRemoverClienteBean()}"
+                                         oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable" styleClass="ui-confirmdialog-no"
+                                         immediate="true"/>
+                    </h:form>
+                </p:confirmDialog>
                 
             </center>
 	</ui:define>
