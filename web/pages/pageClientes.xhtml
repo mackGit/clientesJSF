@@ -32,33 +32,53 @@ and open the template in the editor.
                     
                     <!-- Datatable -->
                     <p:dataTable  id="listClienteDataTable" value="#{clienteBean.clientes}" 
-                                  var="cliente" paginator="true" rows="10"
-                                  style="margin: 20px 100px 20px 100px;" >
+                                  var="cliente" paginator="true" rows="10" widgetVar="listClienteDataTable"
+                                  style="margin: 20px 100px 20px 100px;" filteredValue="#{clienteBean.filteredClientes}">
                         
                         <f:facet name="header">
-                                Lista de Clientes
+                            <p:outputPanel>
+                                <h:outputText value="Procurar: " />
+                                <p:inputText id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" style="width:150px" placeholder="Procurar todos"/>
+                            </p:outputPanel>
                         </f:facet>
                         
+                        
+ 
+                        
+                        
                         <!-- Datatable: Colunas -->
-                        <p:column headerText="ID" width="10%">
+                        <p:column filterBy="#{cliente.idCliente}" headerText="ID" width="15%" footerText="ID" filterMatchMode="contains">
                             <p:outputLabel value="#{cliente.idCliente}" />
                         </p:column>
-                        <p:column headerText="Nome" width="20%">
+                        
+                        <p:column filterBy="#{cliente.nomeCliente}" headerText="Nome" width="15%" footerText="Nome" filterMatchMode="contains">
                             <p:outputLabel value="#{cliente.nomeCliente}"/>
                         </p:column>
-                        <p:column headerText="CPF/CNPJ" width="15%">
+                        
+                        <p:column filterBy="#{cliente.cpfCnpjCliente}" headerText="CPF/CNPJ" width="15%" footerText="CPF/CNPJ" filterMatchMode="contains">
                             <p:outputLabel value="#{cliente.cpfCnpjCliente}"/>
                         </p:column>
-                        <p:column headerText="E-mail" width="25%" >
+                        
+                        <p:column filterBy="#{cliente.emailCliente}" headerText="E-mail" width="20%" footerText="E-mail" filterMatchMode="contains">
                             <p:outputLabel value="#{cliente.emailCliente}"/>
-                        </p:column>                        
-                        <p:column headerText="Situação" width="10%">
+                        </p:column>   
+                        
+                        <p:column filterBy="#{cliente.stCliente}" headerText="Situação" width="20%" footerText="Situação" filterMatchMode="equals">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('listClienteDataTable').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="Todos" itemValue="" />
+                                    <f:selectItem itemLabel="A" itemValue="true" />
+                                    <f:selectItem itemLabel="D" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            
                             <p:outputLabel value="#{cliente.stClienteString}"/>
                         </p:column>
                         
                         
                         <!-- Datatable: Ações -->
-                        <p:column headerText="Ações" style="" exportable="false" width="20%">
+                        <p:column headerText="Ações" style="" exportable="false" width="15%">
                             <center>
                                 <p:commandButton icon="ui-icon ui-icon-info" update=":formDetalhes:clienteDetail" oncomplete= "PF('clienteDetailDialog').show()">
                                     <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.selectedObj}" />
@@ -172,8 +192,8 @@ and open the template in the editor.
                                 </f:facet>
                                 
                                 <p:column>
-                                    <p:outputLabel style="font-weight: bold" value="ID: "/>
-                                    <h:outputText value="#{clienteBean.selectedObj.idCliente}" />
+                                    <p:outputLabel style="font-weight: bold; " value="ID: "/>
+                                    <p:outputLabel value="#{clienteBean.selectedObj.idCliente}" />
                                 </p:column>
                                 
                                 <p:column>
@@ -247,7 +267,7 @@ and open the template in the editor.
                     
                     <!-- Caixa Dialogo EDITAR Cliente -->
                 
-                <p:dialog closeOnEscape="true" style="alignment-adjust: central;" widgetVar="clienteEditDialog" resizable="false">
+                <p:dialog closeOnEscape="true" style="alignment-adjust: central; text-decoration-color: blue;" widgetVar="clienteEditDialog" resizable="false">
                     <h:form id="formEditar">
                         <p:outputPanel id="clienteEdit" >
                             <p:panel>

@@ -10,7 +10,8 @@ and open the template in the editor.
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 
 
 
@@ -18,8 +19,8 @@ and open the template in the editor.
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Minha Aplicacao</title>
-        <h:outputStylesheet library="css" name="style.css"  />
         <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputStylesheet library="css" name="style.css"  />
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
@@ -39,14 +40,20 @@ and open the template in the editor.
                                 <p:link value="Livros"   outcome="livros"/>
                             </center>
                             <br/>
-                            <center>
-                                <div class="divBoasVindas">
-                                    <h:form class="boasVindas">
-                                        <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
-                                        <h:commandLink class="boasVindas" value="Logout" action="#{usuarioBean.encerrarSessao()}" styleClass="styleGreen"/> 
-                                    </h:form>
-                                </div>
-                            </center>
+                            <div class="divBoasVindas">
+                                <center>
+                                    <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
+                                </center>
+                                <center>
+                                <h:form>
+                                    <p:commandLink class="boasVindas"
+                                                   value="Logout"
+                                                   styleClass="styleGreen"
+                                                   update=":usuarioLogout"
+                                                   oncomplete="PF('usuarioLogoutDialog').show()"/>
+                                </h:form>
+                                </center>
+                            </div>
                         </p:layoutUnit><br/>
                     </div>
                 </div>
@@ -65,16 +72,23 @@ and open the template in the editor.
         
         <br />
         
-        <p:layoutUnit position="south" size="100"  footer="Rodapé" style="text-align: center;" resizable="false" closable="false" collapsible="false">
-            <table width="100%" border="1">
-                <tr>
-                    <td align="center" class="boasVindas">Todos os direitos reservados</td>
-                </tr>
-            </table>
-        </p:layoutUnit>
+        <p:layoutUnit position="south" footer="App ClientesJSF" style="text-align: center;"/>
         
     
 </p:layout>
     </h:body>
+    
+    
+    <p:confirmDialog id="usuarioLogout" widgetVar="usuarioLogoutDialog" header="Logout" 
+                     message="Deseja realmente sair #{clienteBean.selectedObj.nomeCliente}?" severity="alert" >
+        <h:form id="formLogout">
+            <p:commandButton value="Sim" icon="ui-icon-check"
+                             action="#{usuarioBean.encerrarSessao()}"
+                             oncomplete="PF('usuarioLogoutDialog').hide()"/>
+            <p:commandButton value="Não" icon="ui-icon-closethick"
+                             oncomplete="PF('usuarioLogoutDialog').hide()"
+                             immediate="true"/>
+        </h:form>
+    </p:confirmDialog>
 </html>
 

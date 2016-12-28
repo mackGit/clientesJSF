@@ -74,11 +74,19 @@ public class UsuarioCon implements Serializable{
             if (FacesContext.getCurrentInstance().getExternalContext()
                 .getSessionMap().get("usuario") == null) {
                 estado = false;
+                redirectLoginPage();
             } else {
                 estado = true;
             }
         return estado;
     }
+    
+    public void redirectLoginPage() {
+        FacesContext.getCurrentInstance().getApplication()
+                .getNavigationHandler()
+                .handleNavigation(FacesContext.getCurrentInstance(), null, "/login.xhtml?faces-redirect=true");
+    }
+    
     public String encerrarSessao() {
         FacesContext.getCurrentInstance().getExternalContext()
                     .invalidateSession();

@@ -28,9 +28,17 @@ public class ClienteCon implements Serializable{
     private Cliente selectedObj;
     private static List<Cliente> clientes = new ArrayList<Cliente>();
     private CidadeDao cidadeDao = new CidadeDao();
+    private List<Cliente> filteredClientes;
 
+    
+    
     public ClienteCon() {
     }
+    
+    
+    
+    
+    
     
     public void adicionarClienteBean () {
         try {
@@ -129,6 +137,14 @@ public class ClienteCon implements Serializable{
 
     public void setCidadeDao(CidadeDao cidadeDao) {
         this.cidadeDao = cidadeDao;
+    }
+    
+    public List<Cliente> getFilteredClientes() {
+        return filteredClientes;
+    }
+
+    public void setFilteredClientes(List<Cliente> filteredClientes) {
+        this.filteredClientes = filteredClientes;
     }
     
 }
