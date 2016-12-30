@@ -24,13 +24,13 @@ and open the template in the editor.
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
             
-                        <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false" >
+            <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false" >
                             <center>
                                 <h2>#{titulo}</h2>
                             </center>
                             
                             <center>
-                                <p:link value="UsuÃ¡rios" outcome="usuarios"/> | 
+                                <p:link value="UsuÃÂ¡rios" outcome="usuarios"/> | 
                                 <p:link value="Clientes" outcome="clientes"/> |
                                 <p:link value="Livros"   outcome="livros"/>
                                 
@@ -50,7 +50,8 @@ and open the template in the editor.
                                 </h:form>
                                 </center>
                             </div>
-                        </p:layoutUnit><br/>
+                        </p:layoutUnit>
+            <br/>
                         
         
         
@@ -79,7 +80,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="NÃ£o" icon="ui-icon-closethick"
+            <p:commandButton value="NÃÂ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>

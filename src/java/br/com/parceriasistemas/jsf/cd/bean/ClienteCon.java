@@ -16,6 +16,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name="clienteBean")
@@ -31,14 +32,8 @@ public class ClienteCon implements Serializable{
     private List<Cliente> filteredClientes;
 
     
-    
     public ClienteCon() {
     }
-    
-    
-    
-    
-    
     
     public void adicionarClienteBean () {
         try {
@@ -96,8 +91,7 @@ public class ClienteCon implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Cliente Foi Alterado!." ));
     }
     
-    
-    
+   
     
     /**/
 
