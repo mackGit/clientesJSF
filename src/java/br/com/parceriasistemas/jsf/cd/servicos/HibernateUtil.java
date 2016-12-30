@@ -6,9 +6,14 @@
 package br.com.parceriasistemas.jsf.cd.servicos;
 
 import org.hibernate.Session;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
+import br.com.parceriasistemas.jsf.cd.model.Cidade;
+import br.com.parceriasistemas.jsf.cd.model.Cliente;
+import br.com.parceriasistemas.jsf.cd.model.Usuario;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -16,46 +21,31 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Mack
  */
-/*
 public class HibernateUtil {
-
     private static final SessionFactory sessionFactory;
-    
+
     static {
         try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+            Configuration configuration = new Configuration();
+            configuration.addAnnotatedClass(Cliente.class);
+            configuration.addAnnotatedClass(Cidade.class);
+            configuration.addAnnotatedClass(Usuario.class);
+            configuration.configure();
+
+            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+
+            sessionFactory = configuration.buildSessionFactory(serviceRegistry);
         } catch (Throwable ex) {
-            // Log the exception. 
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            System.err.println("Erro ao criar a SessionFactory A." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
-}
-*/
 
-public class HibernateUtil {
-   private static final SessionFactory sessionFactory;
-   // O bloco static e executado somente ao criar a primeira instancia
-   static {
-      try {
-         // Cria uma SessionFactory usando o hibernate.cfg.xml
-         sessionFactory = new Configuration().configure().buildSessionFactory();
-      } catch (Throwable ex) {
-          System.err.println("Erro ao criar a SessionFactory A." + ex);
-          throw new ExceptionInInitializerError(ex);
-      }
-   }
-   public static SessionFactory getSessionFactory() {
-      return sessionFactory;
-   }
-   public static Session getSession () {
-      return sessionFactory.openSession(); 
-   }
+    public static Session getSession() {
+        return sessionFactory.openSession();
+    }
 }
-

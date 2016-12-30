@@ -16,30 +16,27 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
-
-@ManagedBean(name="usuarioBean")
+@ManagedBean(name = "usuarioBean")
 @SessionScoped
-public class UsuarioCon implements Serializable{
-    
-    //private List<Usuario> usuarios;
+public class UsuarioCon implements Serializable {
+
+    // private List<Usuario> usuarios;
     private UsuarioDao dao = new UsuarioDao();
     private Usuario obj = new Usuario();
     private Usuario selectedObj;
     private static List<Usuario> usuarios = new ArrayList<Usuario>();
-    
+
     private String nomeUsuarioLogado;
     private Integer idUsuarioLogado;
-    
-    
-    
+
     /*
-    metodos de login
-    */
-    
+     * metodos de login
+     */
+
     public String buscaUsuarioLogado() {
         return nomeUsuarioLogado;
     }
-    
+
     public String logarUsuarioBean() throws Exception {
         UsuarioDao usuDao = new UsuarioDao();
         Usuario us;
@@ -47,123 +44,111 @@ public class UsuarioCon implements Serializable{
         try {
             String encript = DigestUtils.md5Hex(this.obj.getSenhaUsuario());
             this.obj.setSenhaUsuario(encript);
-            
-            
+
             us = usuDao.verificarDadosLoginBanco(this.obj);
             if (us != null) {
-                this.nomeUsuarioLogado=us.getNomeUsuario();
-                this.idUsuarioLogado=us.getIdUsuario();
-                FacesContext.getCurrentInstance().getExternalContext()
-                                .getSessionMap().put("usuario", us);
+                this.nomeUsuarioLogado = us.getNomeUsuario();
+                this.idUsuarioLogado = us.getIdUsuario();
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", us);
 
                 resultado = "/pages/pageWelcome.xhtml?faces-redirect=true";
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuário Logado" ));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuário Logado"));
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Login!", "Usuário ou Senha Inválida" ));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro de Login!", "Usuário ou Senha Inválida"));
                 resultado = "/login.xhtml?faces-redirect=false";
             }
         } catch (Exception e) {
-                    throw e;
+            throw e;
         }
-        System.out.println("resultado: "+ resultado);
+        System.out.println("resultado: " + resultado);
         return resultado;
     }
-    
+
     public boolean verificarSessao() {
         boolean estado;
-            if (FacesContext.getCurrentInstance().getExternalContext()
-                .getSessionMap().get("usuario") == null) {
-                estado = false;
-                redirectLoginPage();
-            } else {
-                estado = true;
-            }
+        if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario") == null) {
+            estado = false;
+            redirectLoginPage();
+        } else {
+            estado = true;
+        }
         return estado;
     }
-    
+
+    public boolean isVerificarSessao() {
+        return verificarSessao();
+    }
+
     public void redirectLoginPage() {
-        FacesContext.getCurrentInstance().getApplication()
-                .getNavigationHandler()
-                .handleNavigation(FacesContext.getCurrentInstance(), null, "/login.xhtml?faces-redirect=true");
+        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/login.xhtml?faces-redirect=true");
     }
-    
+
     public String encerrarSessao() {
-        FacesContext.getCurrentInstance().getExternalContext()
-                    .invalidateSession();
-            return "/login.xhtml?faces-redirect=true";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /*
-    metodos do bean
-    */
-    public void limparCamposUsuarioBean () {
+     * metodos do bean
+     */
+    public void limparCamposUsuarioBean() {
         obj.setNomeUsuario("");
         obj.setLoginUsuario("");
         obj.setEmailUsuario("");
         obj.setSenhaUsuario("");
     }
-    
-    public void adicionarUsuarioBean () {
+
+    public void adicionarUsuarioBean() {
         try {
             dao.adicionarUsuarioBanco(obj);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + obj.getNomeUsuario() + " Adicionado." ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + obj.getNomeUsuario() + " Adicionado."));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar usuario." ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar usuario."));
             System.out.println("Exception: " + e);
         }
     }
-    
-    
-    public void removerUsuarioBean () {
+
+    public void removerUsuarioBean() {
         String nomeUsuarioApagar = selectedObj.getNomeUsuario();
         dao.removerUsuarioBanco(selectedObj);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " Excluído." ));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " Excluído."));
     }
-    public void cancelRemoverUsuarioBean () {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Usuario Excluído!." ));
+
+    public void cancelRemoverUsuarioBean() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Usuario Excluído!."));
     }
-    
-    
-    public void atualizarUsuarioBean () {
+
+    public void atualizarUsuarioBean() {
         String nomeUsuarioAtualizar = selectedObj.getNomeUsuario();
-        // verifica se o id do usuário logado é o mesmo do usuário a ser atualizado, se for, atualiza o nome na "sessão"
+        // verifica se o id do usuário logado é o mesmo do usuário a ser
+        // atualizado, se for, atualiza o nome na "sessão"
         try {
-            if(idUsuarioLogado==selectedObj.getIdUsuario()) {
+            if (idUsuarioLogado == selectedObj.getIdUsuario()) {
                 nomeUsuarioLogado = selectedObj.getNomeUsuario();
             }
-            
+
             String encrypt = DigestUtils.md5Hex(selectedObj.getSenhaUsuario());
             // criptografa a senha
             selectedObj.setSenhaUsuario(encrypt);
             dao.atualizarUsuarioBanco(selectedObj);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioAtualizar + " Atualizado!." ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioAtualizar + " Atualizado!."));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar atualizar usuario." ));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar atualizar usuario."));
             System.out.println("Exception: " + e);
         }
     }
-    public void cancelAtualizarUsuarioBean () {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Usuario Foi Alterado!." ));
+
+    public void cancelAtualizarUsuarioBean() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Usuario Foi Alterado!."));
     }
-    
-    
-    
-    
+
     /**/
 
     public List<Usuario> getUsuarios() {
         usuarios = dao.getList();
         return usuarios;
     }
-    
+
     public Usuario getObj() {
         return obj;
     }
@@ -171,12 +156,12 @@ public class UsuarioCon implements Serializable{
     public void setUsuario(Usuario obj) {
         this.obj = obj;
     }
-    
+
     public Usuario getSelectedObj() {
-        System.out.println("usuario selecionado: "+selectedObj);
+        System.out.println("usuario selecionado: " + selectedObj);
         return selectedObj;
     }
-    
+
     public void setSelectedObj(Usuario selectedObj) {
         this.selectedObj = selectedObj;
     }
@@ -189,6 +174,3 @@ public class UsuarioCon implements Serializable{
         this.dao = dao;
     }
 }
-
-    
-
