@@ -1,2 +1,7 @@
 /nbproject/private/
 /build/
+/.settings/
+/.metadata/
+*.jsdtscope
+*.classpath
+*.project
