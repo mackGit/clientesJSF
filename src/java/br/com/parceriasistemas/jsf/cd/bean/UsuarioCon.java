@@ -85,7 +85,7 @@ public class UsuarioCon implements Serializable {
 
     public String encerrarSessao() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/login.xhtml?faces-redirect=true";
+        return "/login.xhtml";
     }
 
     /*

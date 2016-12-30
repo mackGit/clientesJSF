@@ -12,7 +12,6 @@ and open the template in the editor.
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:cc="http://xmlns.jcp.org/jsf/composite">
-
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>..:: ClientesJSF ::..</title>
@@ -21,49 +20,43 @@ and open the template in the editor.
 
     <h:body rendered="#{usuarioBean.verificarSessao}">
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false"  >
-                    <center>
-                        <h2>#{titulo}</h2>
-                    </center>
-                            
-                            <center>
-                                <p:link value="Usuários" outcome="usuarios"/> | 
-                                <p:link value="Clientes" outcome="clientes"/> |
-                                <p:link value="Livros"   outcome="livros"/>
-                            </center>
-                            <br/>
-                            <div class="divBoasVindas" style="text-align: center;">
-                                <h:outputText value="Bem-vindo #{usuarioBean.buscaUsuarioLogado()}"/>
-                                <h:form>
-                                    <p:commandLink class="boasVindas"
-                                                   value="Logout"
-                                                   styleClass="styleGreen"
-                                                   update=":usuarioLogout"
-                                                   oncomplete="PF('usuarioLogoutDialog').show()"/>
-                                </h:form>
-                            </div>
-                        </p:layoutUnit>
+            <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false">
+                <center>
+                    <h2>#{titulo}</h2>
+                </center>
+                <center>
+                    <p:link value="Usuários" outcome="usuarios"/> | 
+                    <p:link value="Clientes" outcome="clientes"/> |
+                    <p:link value="Livros"   outcome="livros"/>
+                </center>
+                <br/>
+                <div class="divBoasVindas" style="text-align: center;">
+                    <h:outputText value="Bem-vindo #{usuarioBean.buscaUsuarioLogado()}"/>
+                    <h:form>
+                        <p:commandLink class="boasVindas"
+                                       value="Logout"
+                                       styleClass="styleGreen"
+                                       update=":usuarioLogout"
+                                       oncomplete="PF('usuarioLogoutDialog').show()"/>
+                    </h:form>
+                </div>
+            </p:layoutUnit>
             <br/>
 
-        <p:layoutUnit position="center">
-            <table width="100%" border="0">
-                <tr>
-                    <td>
-                        <ui:insert name="conteudo"/>
-                    </td>
-                </tr>
-            </table>
-        </p:layoutUnit>
-        
-        <br />
-        
-        <p:layoutUnit position="south" footer="App ClientesJSF" style="text-align: center;"/>
-        
-    
-</p:layout>
+            <p:layoutUnit position="center">
+                <table style="width: 100%; border: 0px;">
+                    <tr>
+                        <td>
+                            <ui:insert name="conteudo"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:layoutUnit>
+            <br />
+            <p:layoutUnit position="south" footer="App ClientesJSF" style="text-align: center;"/>
+        </p:layout>
     </h:body>
-    
-    
+
     <p:confirmDialog id="usuarioLogout" widgetVar="usuarioLogoutDialog" header="Logout" 
                      message="Deseja realmente sair #{clienteBean.selectedObj.nomeCliente}?" severity="alert" >
         <h:form id="formLogout">
@@ -76,4 +69,3 @@ and open the template in the editor.
         </h:form>
     </p:confirmDialog>
 </html>
-
