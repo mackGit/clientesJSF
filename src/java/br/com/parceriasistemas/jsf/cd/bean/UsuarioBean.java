@@ -53,10 +53,14 @@ public class UsuarioBean implements Serializable {
     }
 
     public void removerUsuarioSelecionado() {
-        String nomeUsuarioApagar = usuarioSelecionado.getNomeUsuario();
-        usuarioDAO.delete(usuarioSelecionado);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " excluído."));
-        atualizarListaUsuarios();
+        if (usuarioSelecionado.equals(UsuarioAutenticadoBean.getUsuarioAutenticadoNaSessao())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "O usuário que você quer excluir é o usuário logado."));
+        } else {
+            String nomeUsuarioApagar = usuarioSelecionado.getNomeUsuario();
+            usuarioDAO.delete(usuarioSelecionado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " excluído."));
+            atualizarListaUsuarios();
+        }
     }
 
     public void cancelarRemocaoUsuarioSelecionado() {
