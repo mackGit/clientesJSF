@@ -18,7 +18,7 @@ and open the template in the editor.
         <h:outputStylesheet library="css" name="style.css" />
     </h:head>
 
-    <h:body rendered="#{usuarioBean.verificarSessao}">
+    <h:body rendered="#{usuarioAutenticadoBean.verificarSessao}">
         <p:layout fullPage="true">
             <p:layoutUnit position="north" resizable="false" closable="false" collapsible="false">
                 <center>
@@ -31,12 +31,9 @@ and open the template in the editor.
                 </center>
                 <br/>
                 <div class="divBoasVindas" style="text-align: center;">
-                    <h:outputText value="Bem-vindo #{usuarioBean.buscaUsuarioLogado()}"/>
+                    <h:outputText value="Bem-vindo, #{usuarioAutenticadoBean.nomeUsuarioAutenticado}"/>
                     <h:form>
-                        <p:commandLink class="boasVindas"
-                                       value="Logout"
-                                       styleClass="styleGreen"
-                                       update=":usuarioLogout"
+                        <p:commandLink class="boasVindas" value="Logout" styleClass="styleGreen" update=":usuarioLogout"
                                        oncomplete="PF('usuarioLogoutDialog').show()"/>
                     </h:form>
                 </div>
@@ -58,10 +55,10 @@ and open the template in the editor.
     </h:body>
 
     <p:confirmDialog id="usuarioLogout" widgetVar="usuarioLogoutDialog" header="Logout" 
-                     message="Deseja realmente sair #{clienteBean.selectedObj.nomeCliente}?" severity="alert" >
+                     message="Deseja realmente sair, #{usuarioAutenticadoBean.nomeUsuarioAutenticado}?" severity="alert" >
         <h:form id="formLogout">
             <p:commandButton value="Sim" icon="ui-icon-check"
-                             action="#{usuarioBean.encerrarSessao()}"
+                             action="#{usuarioAutenticadoBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
             <p:commandButton value="Não" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
