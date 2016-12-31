@@ -176,7 +176,7 @@ and open the template in the editor.
                     
                     
                     <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Usuario -->
-                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" 
+                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" appendTo="@(body)"
                                      message="Deseja realmente apagar o usuario #{usuarioBean.usuarioSelecionado.nomeUsuario}?" severity="alert" >
                             <h:form id="formExcluir">
                             <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioSelecionado()}"

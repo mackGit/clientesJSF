@@ -43,7 +43,7 @@ public class UsuarioBean implements Serializable {
 
     public void adicionarNovoUsuario() {
         try {
-            usuarioDAO.adicionarUsuarioBanco(usuarioSelecionado);
+            usuarioDAO.insert(usuarioSelecionado);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + usuarioSelecionado.getNomeUsuario() + " Adicionado."));
             atualizarListaUsuarios();
         } catch (Exception e) {
@@ -54,7 +54,7 @@ public class UsuarioBean implements Serializable {
 
     public void removerUsuarioSelecionado() {
         String nomeUsuarioApagar = usuarioSelecionado.getNomeUsuario();
-        usuarioDAO.removerUsuarioBanco(usuarioSelecionado);
+        usuarioDAO.delete(usuarioSelecionado);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " excluído."));
         atualizarListaUsuarios();
     }
@@ -66,7 +66,7 @@ public class UsuarioBean implements Serializable {
     public void alterarUsuarioSelecionado() {
         try {
             usuarioSelecionado.criptografarSenhaUsuario();
-            usuarioDAO.atualizarUsuarioBanco(usuarioSelecionado);
+            usuarioDAO.update(usuarioSelecionado);
 
             if (usuarioSelecionado.equals(UsuarioAutenticadoBean.getUsuarioAutenticadoNaSessao())) {
                 UsuarioAutenticadoBean.atualizarUsuarioNaSessao(usuarioSelecionado);
@@ -89,7 +89,6 @@ public class UsuarioBean implements Serializable {
     }
 
     public Usuario getUsuarioSelecionado() {
-        System.out.println("usuario selecionado: " + usuarioSelecionado);
         return usuarioSelecionado;
     }
 
