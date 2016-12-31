@@ -26,7 +26,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author matheus
  */
-public class UsuarioDao {
+public class UsuarioDAO {
     private Session sessao;
     private Transaction tr;
     private List<Usuario> list;
