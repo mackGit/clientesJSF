@@ -5,82 +5,31 @@
  */
 package br.com.parceriasistemas.jsf.cd.dao;
 
-import br.com.parceriasistemas.jsf.cd.model.Cidade;
-import br.com.parceriasistemas.jsf.cd.servicos.HibernateUtil;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
+
+import br.com.parceriasistemas.jsf.cd.model.Cidade;
 
 /**
  *
  * @author matheus
  */
-public class CidadeDao {
-    
-    private Session sessao;
-    private Transaction tr;
-    private List<Cidade> list;
-    
+public class CidadeDAO extends BaseDAO {
+
+    @SuppressWarnings("unchecked")
     public List<Cidade> getList() {
-        sessao = HibernateUtil.getSessionFactory().openSession();
-        tr=sessao.beginTransaction();
-        
-        Criteria cri = sessao.createCriteria(Cidade.class);
-        this.list=cri.list();
-        return list;
+        List<Cidade> retorno = getListByCriteriaClass(Cidade.class);
+        return retorno;
     }
-    
-    
-    
-    public void adicionarCidadeBanco (Cidade cid) {
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            tr = sessao.beginTransaction();
-            Cidade cidade = new Cidade();
-            cidade.setNomeCidade(cid.getNomeCidade());
-            cidade.setEstadoCidade(cid.getEstadoCidade());
-            sessao.save(cidade);
-            tr.commit();
-            
-        } catch (Exception e) {
-            System.out.println(""+e);
-        } finally {
-            sessao.close();
-        }
+
+    public void adicionarCidadeBanco(Cidade cid) {
+        insert(cid);
     }
-    
-    
-    
-    public void removerCidadeBanco (Cidade cid) {
-        try {
-            sessao = HibernateUtil.getSessionFactory().openSession();
-            tr = sessao.beginTransaction();
-            
-            sessao.delete(cid);
-            tr.commit();
-            
-        } catch (Exception e) {
-            System.out.println(""+e);
-        } finally {
-            sessao.close();
-        }
+
+    public void removerCidadeBanco(Cidade cid) {
+        delete(cid);
     }
-    
-    public void atualizarCidadeBanco (Cidade cid) {
-         sessao = HibernateUtil.getSessionFactory().openSession();
-        try {
-            sessao.beginTransaction();
-            sessao.update(cid);
-            sessao.flush();
-            sessao.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println(""+e);
-            sessao.getTransaction().rollback();  
-        } finally {
-            sessao.close();
-        }
+
+    public void atualizarCidadeBanco(Cidade cid) {
+        update(cid);
     }
-    
 }
