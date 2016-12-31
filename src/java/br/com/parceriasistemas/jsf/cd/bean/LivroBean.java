@@ -3,126 +3,106 @@ package br.com.parceriasistemas.jsf.cd.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
-import br.com.parceriasistemas.jsf.cd.dao.LivroDao;
+import br.com.parceriasistemas.jsf.cd.dao.LivroDAO;
 import br.com.parceriasistemas.jsf.cd.model.Livro;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class LivroBean implements Serializable {
-    
+
     private static final long serialVersionUID = -501369252529005169L;
 
-    public Livro obj;
-    private LivroDao dao = new LivroDao();
-    private String mensagem;
-    private char acao = ' ';
-    
-    public LivroBean() {
+    private Livro livroSelecionado;
+    private LivroDAO livroDAO;
+    private List<Livro> livros;
+
+    @PostConstruct
+    public void init() {
+        this.livroDAO = new LivroDAO();
+        atualizarListaLivros();
     }
 
-    public boolean incluir(){
-        obj = new Livro();
-        obj.setId(0);
-        obj.setAutor("");
-        obj.setTitulo("");
-        
-        acao = 'I';
-        return true;
+    private void atualizarListaLivros() {
+        this.livros = livroDAO.getLivros();
     }
 
-    public boolean alterar(){
-        acao = 'A';
-        return true;
+    public void limparCamposLivroBean() {
+        this.livroSelecionado = new Livro();
     }
 
-    public boolean gravar(){
-        switch(acao){
-            case 'I':
-                acao = ' ';
-                if (dao.incluir(obj)){
-                   mensagem = dao.getMensagem();
-                    return true;
-                }
-                else{
-                    mensagem = dao.getMensagem();
-                    return false;
-                }
-            case 'A':
-                acao = ' ';
-                if (dao.alterar(obj)){
-                    mensagem = dao.getMensagem();
-                    return true;
-                }
-                else{
-                    mensagem = dao.getMensagem();
-                    return false;
-                }
-            default:
-                mensagem = "Erro: Nao tem acao especificada!";
+    public void adicionarLivroBean() {
+        try {
+            livroDAO.incluir(livroSelecionado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Livro " + livroSelecionado.getTitulo() + " Adicionado."));
+            atualizarListaLivros();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar livro."));
+        }
+    }
+
+    public void atualizarLivroBean() {
+        try {
+            livroDAO.alterar(livroSelecionado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Livro " + livroSelecionado.getTitulo() + " Atualizado!."));
+            atualizarListaLivros();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar atualizar livro."));
+            e.printStackTrace();
+        }
+    }
+
+
+    public void cancelAtualizarLivroBean() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum livro Foi Alterado!."));
+    }
+
+    public void removerLivroBean() {
+        try {
+            livroDAO.excluir(livroSelecionado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Excluído com sucesso!"));
+            atualizarListaLivros();
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensagem: ", "não foi possível Excluir:"));
+            e.printStackTrace();
+        }
+    }
+
+    public void cancelRemoverLivroBean() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum livro excluído!."));
+    }
+
+    public boolean localizar(int id) {
+        try {
+            this.livroSelecionado = livroDAO.localizarID(id);
+            if (livroSelecionado != null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Encontrou no Banco de Dados"));
+                return true;
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Fail!", "Não encontrou no Banco de Dados: "));
                 return false;
-        }
-    }
-
-    public boolean excluir(){
-        if (dao.excluir(obj)){
-            mensagem = dao.getMensagem();
-            return true;
-        }else{
-            mensagem = dao.getMensagem();
-            return false;
-        }
-    }
-    
-    public void excluir(Livro livro){
-        if(localizar(livro.getId())){
-            if (dao.excluir(obj)){
-                mensagem = dao.getMensagem();            
-            }else{
-                mensagem = dao.getMensagem();            
             }
-        }
-    }
-    
-    public boolean localizar(int id){
-        Livro objSearch = dao.localizarID(id);
-        if (objSearch != null){
-            obj = objSearch;
-            setMensagem(dao.getMensagem());
-            return true;
-        } else{
-            setMensagem("Erro: "+dao.getMensagem());
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensagem: ", "não foi possível encontrar:"));
+            e.printStackTrace();
             return false;
         }
     }
-    
-    public void localizar(Livro livro){
-        Livro objSearch = dao.localizarID(livro.getId());
-        if (objSearch != null){
-            obj = objSearch;
-            setMensagem(dao.getMensagem());
-        } else{
-            setMensagem("Erro: "+dao.getMensagem());
-        }
-    }
-    
-    public List<Livro> getLivros(){
-        mensagem = dao.getMensagem();
-        return dao.getLivros();
-    }
-   
-    public String getMensagem() {
-        return mensagem;
+
+    public List<Livro> getLivros() {
+        return livros;
     }
 
-    public void setMensagem(String mensagem) {
-        this.mensagem = mensagem;
+    public Livro getLivroSelecionado() {
+        return livroSelecionado;
     }
 
-    public Livro getLivro() {
-        return obj;
+    public void setLivroSelecionado(Livro livroSelecionado) {
+        this.livroSelecionado = livroSelecionado;
     }
-    
 }

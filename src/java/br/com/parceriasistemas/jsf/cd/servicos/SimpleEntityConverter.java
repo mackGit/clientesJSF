@@ -5,13 +5,12 @@
  */
 package br.com.parceriasistemas.jsf.cd.servicos;
 
-import br.com.parceriasistemas.jsf.cd.dao.CidadeDAO;
-import br.com.parceriasistemas.jsf.cd.model.Cidade;
-import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+
+import br.com.parceriasistemas.jsf.cd.model.Cidade;
 
 /**
  *

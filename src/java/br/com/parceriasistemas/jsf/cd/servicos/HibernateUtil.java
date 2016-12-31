@@ -13,6 +13,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import br.com.parceriasistemas.jsf.cd.model.Cidade;
 import br.com.parceriasistemas.jsf.cd.model.Cliente;
+import br.com.parceriasistemas.jsf.cd.model.Livro;
 import br.com.parceriasistemas.jsf.cd.model.Usuario;
 
 /**
@@ -29,6 +30,7 @@ public class HibernateUtil {
             Configuration configuration = new Configuration();
             configuration.addAnnotatedClass(Cliente.class);
             configuration.addAnnotatedClass(Cidade.class);
+            configuration.addAnnotatedClass(Livro.class);
             configuration.addAnnotatedClass(Usuario.class);
             configuration.configure();
 

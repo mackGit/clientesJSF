@@ -2,6 +2,7 @@ package br.com.parceriasistemas.jsf.cd.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,22 +14,24 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "livro")
-@SequenceGenerator(name="SEQ_LIVRO", sequenceName = "SEQ_LIVRO")
+@SequenceGenerator(name = "SEQ_LIVRO", sequenceName = "SEQ_LIVRO")
 public class Livro implements Serializable {
-    
+
+    private static final long serialVersionUID = -6894965051770897856L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_LIVRO")
     @Column(name = "id", length = 20, updatable = false)
     private Integer id;
-    
+
     @Column(name = "titulo")
     @Size(max = 150)
     private String titulo;
-    
+
     @Column(name = "autor")
     @Size(max = 150)
     private String autor;
-    
+
     public Livro() {
     }
 
@@ -77,7 +80,5 @@ public class Livro implements Serializable {
         }
         return true;
     }
-    
-    
 
 }

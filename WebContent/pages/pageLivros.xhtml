@@ -19,10 +19,10 @@
                                       oncomplete= "PF('livroAddDialog').show()" 
                                       resetValues="true" immediate="true"
                                       update=":formAdd:livroAdd"
-                                      actionListener="#{LivroBean.limparCamposLivroBean()}"/>
+                                      actionListener="#{livroBean.limparCamposLivroBean()}"/>
                     
                     <!-- Datatable -->
-                    <p:dataTable  id="listLivroDataTable" value="#{LivroBean.livros}" 
+                    <p:dataTable  id="listLivroDataTable" value="#{livroBean.livros}" 
                                   var="livro" paginator="true" rows="10"
                                   style="margin: 20px 100px 20px 100px;" >
                         
@@ -31,27 +31,27 @@
                         </f:facet>
                         
                         <!-- Datatable: Colunas -->
-                        <p:column headerText="ID" width="10%">
-                            <p:outputLabel value="#{livro.idLivro}" />
+                        <p:column headerText="ID" width="5%">
+                            <p:outputLabel value="#{livro.id}" />
                         </p:column>
-                        <p:column headerText="Nome" width="20%">
-                            <p:outputLabel value="#{livro.nomeLivro}"/>
+                        <p:column headerText="Título" width="45%">
+                            <p:outputLabel value="#{livro.titulo}"/>
                         </p:column>
-                        <p:column headerText="CPF/CNPJ" width="15%">
-                            <p:outputLabel value="#{livro.cpfCnpjLivro}"/>
+                        <p:column headerText="Autor" width="40%">
+                            <p:outputLabel value="#{livro.autor}"/>
                         </p:column>
                         
                         
                         <!-- Datatable: Ações -->
-                        <p:column headerText="Ações" style="" exportable="false" width="20%">
+                        <p:column headerText="Ações" style="" exportable="false" width="10%">
                             <center>
                                 
                                 <p:commandButton icon="ui-icon-pencil" update=":formEditar:livroEdit" oncomplete="PF('livroEditDialog').show()">
-                                        <f:setPropertyActionListener value="#{livro}" target="#{LivroBean.selectedObj}" />
+                                        <f:setPropertyActionListener value="#{livro}" target="#{livroBean.livroSelecionado}" />
                                 </p:commandButton>
                                 
                                 <p:commandButton icon="ui-icon-trash" update=":livroRemove" oncomplete="PF('livroRemoveDialog').show()">
-                                        <f:setPropertyActionListener value="#{livro}" target="#{LivroBean.selectedObj}" />
+                                        <f:setPropertyActionListener value="#{livro}" target="#{livroBean.livroSelecionado}" />
                                 </p:commandButton>
                             </center>
                         </p:column>
@@ -72,20 +72,17 @@
                                             <p:outputLabel style="font-weight: bold" value="Informações do Livro"/>
                                         </f:facet>
 
+                                        <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Título: "/>
+                                        <p:inputText id="nomeTxt" value="#{livroBean.livroSelecionado.titulo}" required="true"/>
 
-                                        <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Nome: "/>
-                                        <p:inputText id="nomeTxt" value="#{LivroBean.obj.nomeLivro}" required="true"/>
-
-                                        <p:outputLabel for="cpfCnpjTxt" style="font-weight: bold" value="CPF/CNPJ: "/>
-                                        <p:inputMask id="cpfCnpjTxt" value="#{LivroBean.obj.cpfCnpjLivro}" mask="999-999-999.99" required="true"/>
-
-                                        
+                                        <p:outputLabel for="autorTxt" style="font-weight: bold" value="Autor: "/>
+                                        <p:inputText id="autorTxt" value="#{livroBean.livroSelecionado.autor}" required="true"/>
                                     </p:panelGrid>
                                 </p:panel>
                                 <br/>
                                 <center>
                                     <p:commandButton value="Adicionar" icon="ui-icon-plus"
-                                                     actionListener="#{LivroBean.adicionarLivroBean()}"
+                                                     actionListener="#{livroBean.adicionarLivroBean()}"
                                                      oncomplete="if(!args.validationFailed) PF('livroAddDialog').hide()"
                                                      update=":form:listLivroDataTable :formAdd:livroAdd" 
                                                      />
@@ -106,18 +103,19 @@
                         <p:outputPanel id="livroEdit" >
                             <p:panel>
                                 <p:panel>
-                                    <p:panelGrid  columns="4" rendered="#{not empty LivroBean.selectedObj}">
-                               
+                                    <p:panelGrid  columns="4" rendered="#{livroBean.livroSelecionado != null}">
                                         <f:facet name="header">
                                             <p:outputLabel style="font-weight: bold" value="Edição de Livros "/>
                                         </f:facet>
 
                                         <p:outputLabel style="font-weight: bold" value="ID: "/>
-                                        <p:inputText value="#{LivroBean.selectedObj.idLivro}" disabled="true"/>
+                                        <p:inputText value="#{livroBean.livroSelecionado.id}" disabled="true"/>
 
-                                        <p:outputLabel style="font-weight: bold" value="Nome: "/>
-                                        <p:inputText value="#{LivroBean.selectedObj.nomeLivro}" required="true"/>
+                                        <p:outputLabel style="font-weight: bold" value="Título: "/>
+                                        <p:inputText value="#{livroBean.livroSelecionado.titulo}" required="true"/>
 
+                                        <p:outputLabel for="autorEdit" style="font-weight: bold" value="Autor: "/>
+                                        <p:inputText id="autorEdit" value="#{livroBean.livroSelecionado.autor}" required="true"/>
                                     </p:panelGrid>
                                 </p:panel>
                                 <br/>
@@ -125,14 +123,14 @@
                                     <f:facet name="footer">
                                         <center>
                                             <p:commandButton value="Atualizar" icon="ui-icon-check"
-                                                             action="#{LivroBean.atualizarLivroBean}"
+                                                             action="#{livroBean.atualizarLivroBean}"
                                                              oncomplete="if(!args.validationFailed) PF('livroEditDialog').hide()"
                                                              update=":form:listLivroDataTable :formEditar:livroEdit" />
                                             
                                             <p:commandButton value="Cancelar" icon="ui-icon-closethick" immediate="true"
                                                              oncomplete="PF('livroEditDialog').hide()"
                                                              update=":form:listLivroDataTable" 
-                                                             action="#{LivroBean.cancelAtualizarLivroBean()}"
+                                                             action="#{livroBean.cancelAtualizarLivroBean()}"
                                                              />
                                         </center>
                                     </f:facet>
@@ -144,12 +142,12 @@
                     
                     
                     <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Livro -->
-                    <p:confirmDialog id="livroRemove" widgetVar="livroRemoveDialog" header="Remoção de usuário" 
-                                     message="Deseja realmente apagar o livro #{LivroBean.selectedObj.nomeLivro}?" severity="alert" >
+                    <p:confirmDialog id="livroRemove" widgetVar="livroRemoveDialog" header="Remoção de livro" appendTo="@(body)"
+                                     message="Deseja realmente apagar o livro #{livroBean.livroSelecionado.titulo}?" severity="alert" >
                             <h:form id="formExcluir">
-                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{LivroBean.removerLivroBean()}"
+                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{livroBean.removerLivroBean()}"
                                              oncomplete="PF('livroRemoveDialog').hide()" update=":form:listLivroDataTable"/>
-                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{LivroBean.cancelRemoverLivroBean()}"
+                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{livroBean.cancelRemoverLivroBean()}"
                                              oncomplete="PF('livroRemoveDialog').hide()" update=":form:listLivroDataTable"
                                              immediate="true"/>
                             </h:form>

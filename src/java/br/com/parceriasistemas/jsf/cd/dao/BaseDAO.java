@@ -86,4 +86,18 @@ public abstract class BaseDAO {
             session.close();
         }
     }
+
+    @SuppressWarnings({ "rawtypes" })
+    protected final Object findById(Class criteriaClass, int id) {
+        Session sessaion = HibernateUtil.getSession();
+        try {
+            Object result = criteriaClass.cast(sessaion.load(criteriaClass, id));
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            sessaion.close();
+        }
+    }
 }
