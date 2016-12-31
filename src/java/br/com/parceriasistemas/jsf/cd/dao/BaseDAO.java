@@ -12,6 +12,7 @@ import br.com.parceriasistemas.jsf.cd.servicos.HibernateUtil;
  * 
  * @author Everton Morais
  */
+public abstract class BaseDAO {
     public final void insert(Object entity) {
         Session session = HibernateUtil.getSession();
         try {
