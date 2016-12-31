@@ -5,7 +5,7 @@
  */
 package br.com.parcerisistemas.jsf.cd.teste;
 
-import br.com.parceriasistemas.jsf.cd.dao.CidadeDao;
+import br.com.parceriasistemas.jsf.cd.dao.CidadeDAO;
 import br.com.parceriasistemas.jsf.cd.model.Cidade;
 
 /**
@@ -27,7 +27,7 @@ public class Teste {
         */
         
         
-        CidadeDao cidadeDao = new CidadeDao();
+        CidadeDAO cidadeDao = new CidadeDAO();
         Cidade cidade = new Cidade();
         cidade.setIdCidade(4);
         cidade.setNomeCidade("Curitiba");

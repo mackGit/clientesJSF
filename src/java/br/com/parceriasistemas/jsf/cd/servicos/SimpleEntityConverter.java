@@ -5,7 +5,7 @@
  */
 package br.com.parceriasistemas.jsf.cd.servicos;
 
-import br.com.parceriasistemas.jsf.cd.dao.CidadeDao;
+import br.com.parceriasistemas.jsf.cd.dao.CidadeDAO;
 import br.com.parceriasistemas.jsf.cd.model.Cidade;
 import java.util.Map;
 import javax.faces.component.UIComponent;

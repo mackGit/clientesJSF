@@ -8,6 +8,7 @@ package br.com.parceriasistemas.jsf.cd.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,79 +21,75 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "cliente")
-@SequenceGenerator(name="SEQ_CLIENTE", sequenceName = "SEQ_CLIENTE")
-public class Cliente implements Serializable{
-    
-    
-    
-    
+@SequenceGenerator(name = "SEQ_CLIENTE", sequenceName = "SEQ_CLIENTE")
+public class Cliente implements Serializable {
+
+    private static final long serialVersionUID = -3312834149516894953L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "SEQ_CLIENTE")
     @Column(name = "idCliente", length = 20, updatable = false)
     private Integer idCliente;
-    
+
     @Column(name = "nomeCliente")
     @Size(max = 150)
     @NotEmpty
     private String nomeCliente;
-    
+
     @Column(name = "dtNascimentoCliente")
     @Temporal(TemporalType.DATE)
     private Date dtNascimentoCliente;
-    
+
     @Column(name = "cpfCnpjCliente")
-    @Size(min=14,max=14)
-    private String  cpfCnpjCliente;
-    
+    @Size(min = 14, max = 14)
+    private String cpfCnpjCliente;
+
     @Column(name = "bairroCliente")
-    @Size(max=100)
-    private String  bairroCliente;
-    
+    @Size(max = 100)
+    private String bairroCliente;
+
     @Column(name = "enderecoCliente")
-    @Size(max=100)
-    private String  enderecoCliente;
-    
+    @Size(max = 100)
+    private String enderecoCliente;
+
     @Column(name = "numeroCliente")
     private Integer numeroCliente;
-    
+
     @Column(name = "cepCliente")
-    @Size(max=8)
-    private String  cepCliente;
-    
+    @Size(max = 8)
+    private String cepCliente;
+
     @Column(name = "complementoCliente")
-    @Size(max=80)
-    private String  complementoCliente;
-    
+    @Size(max = 80)
+    private String complementoCliente;
+
     @Column(name = "emailCliente")
-    @Size(max=80)
-    private String  emailCliente;
-    
+    @Size(max = 80)
+    private String emailCliente;
+
     @Column(name = "telCelularCliente")
-    @Size(max=80)
-    private String  telCelularCliente;
-    
+    @Size(max = 80)
+    private String telCelularCliente;
+
     @Column(name = "telComercialCliente")
-    @Size(max=80)
-    private String  telComercialCliente;
-    
+    @Size(max = 80)
+    private String telComercialCliente;
+
     @Column(name = "stCliente")
     private Boolean stCliente;
-    
+
     @JoinColumn(name = "idCidade")
     @ManyToOne
     private Cidade cidadeCliente;
 
-    /* Contrutores */
-
-    
     public Cliente() {
     }
-    
-    
+
     public Cliente(Integer idCliente) {
         this.idCliente = idCliente;
     }
@@ -120,7 +117,7 @@ public class Cliente implements Serializable{
         hash = 41 * hash + Objects.hashCode(this.idCliente);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -142,14 +139,7 @@ public class Cliente implements Serializable{
     public String toString() {
         return "Cliente{" + "idCliente=" + idCliente + ", nomeCliente=" + nomeCliente + '}';
     }
-    
-    
-    
-    
-    
-    
-    /*getters e setters*/
-    
+
     public Integer getIdCliente() {
         return idCliente;
     }
@@ -249,7 +239,6 @@ public class Cliente implements Serializable{
     public Cidade getCidadeCliente() {
         return cidadeCliente;
     }
-    
 
     public void setCidadeCliente(Cidade cidadeCliente) {
         this.cidadeCliente = cidadeCliente;
@@ -258,9 +247,9 @@ public class Cliente implements Serializable{
     public Boolean getStCliente() {
         return stCliente;
     }
-    
+
     public String getStClienteString() {
-        if (stCliente == true) {
+        if (stCliente) {
             return "Ativo";
         } else {
             return "Desativado";
@@ -270,9 +259,4 @@ public class Cliente implements Serializable{
     public void setStCliente(Boolean stCliente) {
         this.stCliente = stCliente;
     }
-    
-    
-    
-    
-    
 }

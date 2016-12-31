@@ -6,16 +6,15 @@
 package br.com.parceriasistemas.jsf.cd.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-import br.com.parceriasistemas.jsf.cd.dao.CidadeDao;
-import br.com.parceriasistemas.jsf.cd.dao.ClienteDao;
+import br.com.parceriasistemas.jsf.cd.dao.ClienteDAO;
 import br.com.parceriasistemas.jsf.cd.model.Cliente;
 
 @ManagedBean
@@ -24,64 +23,58 @@ public class ClienteBean implements Serializable {
 
     private static final long serialVersionUID = 8495427135147700288L;
 
-    // private List<Cliente> clientes;
-    private ClienteDao dao = new ClienteDao();
-    private Cliente obj = new Cliente();
-    private Cliente selectedObj;
-    private static List<Cliente> clientes = new ArrayList<Cliente>();
-    private CidadeDao cidadeDao = new CidadeDao();
+    private ClienteDAO clienteDAO;
+    private Cliente clienteSelecionado;
+    private List<Cliente> clientes;
     private List<Cliente> filteredClientes;
 
-    public ClienteBean() {
+    @PostConstruct
+    public void init() {
+        this.clienteDAO = new ClienteDAO();
+        atualizarListaClientes();
+    }
+
+    private void atualizarListaClientes() {
+        this.clientes = clienteDAO.getList();
+        this.filteredClientes = null;
     }
 
     public void adicionarClienteBean() {
         try {
-            dao.adicionarClienteBanco(obj);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + obj.getNomeCliente() + " Adicionado."));
+            clienteDAO.insert(clienteSelecionado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + clienteSelecionado.getNomeCliente() + " Adicionado."));
+            atualizarListaClientes();
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar cliente."));
-            System.out.println("Exception: " + e);
+            e.printStackTrace();
         }
     }
 
-    /*
-     * metodos do bean
-     */
     public void limparCamposClienteBean() {
-        obj.setBairroCliente("");
-        obj.setCepCliente("");
-        obj.setCidadeCliente(null);
-        obj.setComplementoCliente("");
-        obj.setCpfCnpjCliente("");
-        obj.setDtNascimentoCliente(null);
-        obj.setEmailCliente("");
-        obj.setEnderecoCliente("");
-        obj.setNomeCliente("");
-        obj.setNumeroCliente(null);
-        obj.setStCliente(true);
-        obj.setTelCelularCliente("");
-        obj.setTelComercialCliente("");
+        this.clienteSelecionado = new Cliente();
+        this.clienteSelecionado.setStCliente(true);
     }
 
     public void removerClienteBean() {
-        String nomeClienteApagar = selectedObj.getNomeCliente();
-        dao.removerClienteBanco(selectedObj);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + nomeClienteApagar + " Excluído."));
+        String nomeClienteApagar = clienteSelecionado.getNomeCliente();
+        clienteDAO.delete(clienteSelecionado);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + nomeClienteApagar + " excluido."));
+        atualizarListaClientes();
     }
 
     public void cancelRemoverClienteBean() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Cliente Excluído!."));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Cliente exclu�do!."));
     }
 
     public void atualizarClienteBean() {
-        String nomeClienteApagar = selectedObj.getNomeCliente();
+        String nomeClienteApagar = clienteSelecionado.getNomeCliente();
         try {
-            dao.atualizarClienteBanco(selectedObj);
+            clienteDAO.update(clienteSelecionado);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + nomeClienteApagar + " Atualizado!."));
+            atualizarListaClientes();
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar atualizar cliente."));
-            System.out.println("Exception: " + e);
+            e.printStackTrace();
         }
     }
 
@@ -89,44 +82,16 @@ public class ClienteBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Cliente Foi Alterado!."));
     }
 
-    /**/
-
     public List<Cliente> getClientes() {
-        clientes = dao.getList();
         return clientes;
     }
 
-    public Cliente getObj() {
-        return obj;
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
     }
 
-    public void setCliente(Cliente obj) {
-        this.obj = obj;
-    }
-
-    public Cliente getSelectedObj() {
-        System.out.println("cliente selecionado: " + selectedObj);
-        return selectedObj;
-    }
-
-    public void setSelectedObj(Cliente selectedObj) {
-        this.selectedObj = selectedObj;
-    }
-
-    public ClienteDao getDao() {
-        return dao;
-    }
-
-    public void setDao(ClienteDao dao) {
-        this.dao = dao;
-    }
-
-    public CidadeDao getCidadeDao() {
-        return cidadeDao;
-    }
-
-    public void setCidadeDao(CidadeDao cidadeDao) {
-        this.cidadeDao = cidadeDao;
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
     }
 
     public List<Cliente> getFilteredClientes() {
@@ -136,5 +101,4 @@ public class ClienteBean implements Serializable {
     public void setFilteredClientes(List<Cliente> filteredClientes) {
         this.filteredClientes = filteredClientes;
     }
-
 }
