@@ -17,11 +17,15 @@ public class UsuarioAutenticadoBean implements Serializable {
 
     public static final String NOME_ATRIBUTO_USUARIO = "usuario";
 
-    private Usuario usuarioAutenticado;
+    private static Usuario usuarioAutenticado;
 
     @PostConstruct
     public void init() {
-        this.usuarioAutenticado = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(NOME_ATRIBUTO_USUARIO);
+        UsuarioAutenticadoBean.usuarioAutenticado = getUsuarioArmazenadoNoFacesContext();
+    }
+
+    private static Usuario getUsuarioArmazenadoNoFacesContext() {
+        return (Usuario)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(NOME_ATRIBUTO_USUARIO);
     }
 
     public Usuario getUsuarioAutenticado() {
@@ -35,7 +39,7 @@ public class UsuarioAutenticadoBean implements Serializable {
     public String encerrarSessao() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(NOME_ATRIBUTO_USUARIO);
-        this.usuarioAutenticado = null;
+        UsuarioAutenticadoBean.usuarioAutenticado = null;
 
         return "/login.xhtml";
     }
@@ -51,7 +55,20 @@ public class UsuarioAutenticadoBean implements Serializable {
         FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/login.xhtml?faces-redirect=true");
     }
 
-    public static void adicionarUsuarioNaSessao(Usuario usuarioAutenticado) {
+    private static void alterarAtributoDoUsuarioAutenticadoNoFacesContext(Usuario usuarioAutenticado) {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(NOME_ATRIBUTO_USUARIO, usuarioAutenticado);
+        UsuarioAutenticadoBean.usuarioAutenticado = getUsuarioArmazenadoNoFacesContext();
+    }
+
+    public static void adicionarUsuarioNaSessao(Usuario usuarioAutenticado) {
+        alterarAtributoDoUsuarioAutenticadoNoFacesContext(usuarioAutenticado);
+    }
+
+    public static void atualizarUsuarioNaSessao(Usuario usuarioAutenticado) {
+        alterarAtributoDoUsuarioAutenticadoNoFacesContext(usuarioAutenticado);
+    }
+
+    public static Usuario getUsuarioAutenticadoNaSessao() {
+        return getUsuarioArmazenadoNoFacesContext();
     }
 }

@@ -7,9 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
-import br.com.parceriasistemas.jsf.cd.dao.UsuarioDao;
+import br.com.parceriasistemas.jsf.cd.dao.UsuarioDAO;
 import br.com.parceriasistemas.jsf.cd.model.Usuario;
 
 @ManagedBean
@@ -38,16 +36,14 @@ public class LoginBean implements Serializable {
     }
 
     public String login() throws Exception {
-        UsuarioDao usuarioDao = new UsuarioDao();
         String resultado;
         try {
-            String senhaEncriptada = DigestUtils.md5Hex(senha);
-
             Usuario usuarioLogin = new Usuario();
             usuarioLogin.setLoginUsuario(login);
-            usuarioLogin.setSenhaUsuario(senhaEncriptada);
+            usuarioLogin.setSenhaUsuario(senha);
+            usuarioLogin.criptografarSenhaUsuario();
 
-            Usuario usuarioAutenticado = usuarioDao.verificarDadosLoginBanco(usuarioLogin);
+            Usuario usuarioAutenticado = new UsuarioDAO().verificarDadosLoginBanco(usuarioLogin);
 
             if (usuarioAutenticado != null) {
                 UsuarioAutenticadoBean.adicionarUsuarioNaSessao(usuarioAutenticado);
