@@ -13,6 +13,7 @@ import br.com.parceriasistemas.jsf.cd.model.Cliente;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -34,6 +35,18 @@ public class ClienteCon implements Serializable{
     
     public ClienteCon() {
     }
+    
+    
+    @PostConstruct
+	public void construct() {
+            //code
+            clientes = dao.getList();
+	}
+	public List<Cliente> getClientes() {
+            return clientes;
+    }
+        
+        
     
     public void adicionarClienteBean () {
         try {
@@ -94,11 +107,12 @@ public class ClienteCon implements Serializable{
    
     
     /**/
-
+/*
     public List<Cliente> getClientes() {
         clientes = dao.getList();
         return clientes;
     }
+    */
     
     public Cliente getObj() {
         return obj;

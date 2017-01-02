@@ -32,18 +32,45 @@ and open the template in the editor.
                     
                     <!-- Datatable -->
                     <p:dataTable  id="listClienteDataTable" value="#{clienteBean.clientes}"
-                                  var="cliente" paginator="true" rows="10" widgetVar="listClienteDataTable" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15"
-                                  style="margin: 20px 100px 20px 100px;" filteredValue="#{clienteBean.filteredClientes}" sortBy="#{cliente.idCliente}" sortMode="single" sortOrder="descending">
+                                  var="cliente" paginator="true" rows="10" widgetVar="listClienteDataTable" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}" rowsPerPageTemplate="5,10,15"
+                                  style="margin: 20px 100px 20px 100px;" filteredValue="#{clienteBean.filteredClientes}" sortBy="#{cliente.idCliente}" sortMode="single" sortOrder="descending" >
+                        
+                        <f:facet name="{Exporters}">
+                            <div class="exporters">
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="pdf.png" width="24"/>
+                                    <p:dataExporter type="img" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="xml.png" width="24"/>
+                                    <p:dataExporter type="xml" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                </h:commandLink>
+                            </div>
+                        </f:facet>
+                        
                         
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Procurar: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" style="width:150px" placeholder="Procurar todos"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" style="width:150px" placeholder="Procurar todos" />
                             </p:outputPanel>
                         </f:facet>
                         
+                        
+                        
                         <!-- Datatable: Colunas -->
-                            <p:column sortBy="#{cliente.idCliente}"  filterBy="#{cliente.idCliente}" headerText="ID" width="15%" filterMatchMode="contains">
+                            <p:column sortBy="#{cliente.idCliente}"  filterBy="#{cliente.idCliente}" headerText="ID" width="15%" >
                                 <f:facet name="header">
                                     <h:outputText value="Id" />
                                 </f:facet>
