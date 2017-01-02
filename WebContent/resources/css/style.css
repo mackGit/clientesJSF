@@ -12,3 +12,9 @@ and open the template in the editor.
     text-align: center;
 }
 
+.exporters {
+    float:right;
+}
+.currentPageReport {
+    float:left;
+}
