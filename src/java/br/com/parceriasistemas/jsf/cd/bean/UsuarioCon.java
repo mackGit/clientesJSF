@@ -22,7 +22,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 
 @ManagedBean(name="usuarioBean")
-@ViewScoped
+@SessionScoped
 public class UsuarioCon implements Serializable{
     
     //private List<Usuario> usuarios;
@@ -38,17 +38,16 @@ public class UsuarioCon implements Serializable{
     public UsuarioCon() {
     }
     
+   
+    
     @PostConstruct
-	public void construct() {
+	public void init() {
             //code
             usuarios = dao.getList();
 	}
-	public List<Usuario> getUsuarios() {
-            return usuarios;
-    }
-    
-    
-    
+        public List<Usuario> getUsuarios() {
+                return usuarios;
+        }
     
     /*
     metodos de login
@@ -136,14 +135,27 @@ public class UsuarioCon implements Serializable{
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar usuario." ));
             System.out.println("Exception: " + e);
+        } finally {
+            init();
         }
     }
     
     
     public void removerUsuarioBean () {
         String nomeUsuarioApagar = selectedObj.getNomeUsuario();
-        dao.removerUsuarioBanco(selectedObj);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " Excluído." ));
+        Integer IdUsuarioApagar = selectedObj.getIdUsuario();
+        try {
+            if (IdUsuarioApagar==idUsuarioLogado) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "O usuário " + nomeUsuarioApagar + " está logado." ));
+            } else {
+                dao.removerUsuarioBanco(selectedObj);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Usuario " + nomeUsuarioApagar + " Excluído." ));
+            }
+        } catch (Exception e) {
+            System.out.println("erro ao remover: " +e);
+        } finally {
+            init();
+        }
     }
     public void cancelRemoverUsuarioBean () {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Usuario Excluído!." ));
@@ -152,7 +164,7 @@ public class UsuarioCon implements Serializable{
     
     public void atualizarUsuarioBean () {
         String nomeUsuarioAtualizar = selectedObj.getNomeUsuario();
-        // verifica se o id do usuário logado é o mesmo do usuário a ser atualizado, se for, atualiza o nome na "sessão"
+        // verifica se o id do usuário logado é o mesmo do usuário a ser atualizado; Se for, atualiza o nome na "sessão"
         try {
             if(idUsuarioLogado==selectedObj.getIdUsuario()) {
                 nomeUsuarioLogado = selectedObj.getNomeUsuario();
@@ -166,6 +178,8 @@ public class UsuarioCon implements Serializable{
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar atualizar usuario." ));
             System.out.println("Exception: " + e);
+        } finally {
+            init();
         }
     }
     public void cancelAtualizarUsuarioBean () {

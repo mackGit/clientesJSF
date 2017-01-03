@@ -41,14 +41,17 @@ public class ClienteCon implements Serializable{
     
     
     @PostConstruct
-	public void construct() {
+	public void init() {
             //code
             clientes = dao.getList();
+            
 	}
+    
+    
 	public List<Cliente> getClientes() {
             return clientes;
     }
-        
+       
         
     
     public void adicionarClienteBean () {
@@ -58,6 +61,8 @@ public class ClienteCon implements Serializable{
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", "Erro ao tentar adicionar cliente." ));
             System.out.println("Exception: " + e);
+        } finally {
+            init();
         }
     }
     
@@ -85,9 +90,16 @@ public class ClienteCon implements Serializable{
     
     public void removerClienteBean () {
         String nomeClienteApagar = selectedObj.getNomeCliente();
-        dao.removerClienteBanco(selectedObj);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + nomeClienteApagar + " Excluído." ));
+        try {
+            dao.removerClienteBanco(selectedObj);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", "Cliente " + nomeClienteApagar + " Excluído." ));
+        } catch (Exception e) {
+            System.out.println("erro ao remover: " + e);
+        } finally {
+            init();
+        }
     }
+    
     public void cancelRemoverClienteBean () {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem: ", "Nenhum Cliente Excluído!." ));
     }
@@ -110,7 +122,8 @@ public class ClienteCon implements Serializable{
    
     
     /**/
-/*
+
+    /*
     public List<Cliente> getClientes() {
         clientes = dao.getList();
         return clientes;

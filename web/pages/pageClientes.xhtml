@@ -73,7 +73,7 @@ and open the template in the editor.
                         
                         
                         <!-- Datatable: Colunas -->
-                            <p:column sortBy="#{cliente.idCliente}"  filterBy="#{cliente.idCliente}" headerText="ID" width="15%" >
+                            <p:column sortBy="#{cliente.idCliente}"  filterBy="#{cliente.idCliente}" headerText="ID" width="15%" footerText="Id" filterMatchMode="contains">
                                 <f:facet name="header">
                                     <h:outputText value="Id" />
                                 </f:facet>
@@ -107,7 +107,7 @@ and open the template in the editor.
 
 
                             <!-- Datatable: Ações -->
-                            <p:column headerText="Ações" style="" exportable="false" width="15%">
+                            <p:column headerText="Ações" style="" exportable="false" width="15%" footerText="Ações">
                                 <center>
                                     <p:commandButton icon="ui-icon ui-icon-info" update=":formDetalhes:clienteDetail" oncomplete= "PF('clienteDetailDialog').show()">
                                         <f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.selectedObj}" />
@@ -364,7 +364,7 @@ and open the template in the editor.
                 <p:confirmDialog id="clienteRemove" widgetVar="clienteRemoveDialog" header="Remoção de usuário"  global="true"
                                  message="Deseja realmente apagar o cliente #{clienteBean.selectedObj.nomeCliente}?" severity="alert" closable="true" closeOnEscape="true" >
                     <h:form id="formExcluir">
-                        <p:commandButton value="Sim" icon="ui-icon-check" action="#{clienteBean.removerClienteBean()}"
+                        <p:commandButton value="Sim" icon="ui-icon-check" actionListener="#{clienteBean.removerClienteBean()}"
                                          oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable" styleClass="ui-confirmdialog-yes" />
                         <p:commandButton value="Não" icon="ui-icon-closethick" action="#{clienteBean.cancelRemoverClienteBean()}"
                                          oncomplete="PF('clienteRemoveDialog').hide()" update=":form:listClienteDataTable" styleClass="ui-confirmdialog-no"

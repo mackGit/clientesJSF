@@ -81,28 +81,28 @@ and open the template in the editor.
                         
                         
                         <!-- Datatable: Colunas -->
-                        <p:column sortBy="#{usuario.idUsuario}" filterBy="#{usuario.idUsuario}" headerText="ID" width="15%">
+                        <p:column sortBy="#{usuario.idUsuario}" filterBy="#{usuario.idUsuario}" headerText="ID" width="15%" footerText="Id" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             <h:outputText value="#{usuario.idUsuario}"/>
                         </p:column>
                         
-                        <p:column sortBy="#{usuario.nomeUsuario}" filterBy="#{usuario.nomeUsuario}" headerText="Nome" width="20%">
+                        <p:column sortBy="#{usuario.nomeUsuario}" filterBy="#{usuario.nomeUsuario}" headerText="Nome" width="20%" footerText="Nome" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Nome"/>
                             </f:facet>
                             <h:outputText value="#{usuario.nomeUsuario}"/>
                         </p:column>
                         
-                        <p:column sortBy="#{usuario.loginUsuario}" filterBy="#{usuario.loginUsuario}" headerText="Login" width="15%">
+                        <p:column sortBy="#{usuario.loginUsuario}" filterBy="#{usuario.loginUsuario}" headerText="Login" width="15%" footerText="Login" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="Login"/>
                             </f:facet>
                             <h:outputText value="#{usuario.loginUsuario}"/>
                         </p:column>
                         
-                        <p:column sortBy="#{usuario.emailUsuario}" filterBy="#{usuario.emailUsuario}" headerText="E-mail" width="25%" >
+                        <p:column sortBy="#{usuario.emailUsuario}" filterBy="#{usuario.emailUsuario}" headerText="E-mail" width="25%" footerText="E-mail" filterMatchMode="contains">
                             <f:facet name="header">
                                 <h:outputText value="E-mail"/>
                             </f:facet>
@@ -111,7 +111,7 @@ and open the template in the editor.
                         
                         
                         <!-- Datatable: Ações -->
-                        <p:column headerText="Ações" style="" exportable="false" width="25%">
+                        <p:column headerText="Ações" style="" exportable="false" width="25%" footerText="Ações">
                             <center>                           
                                 <p:commandButton icon="ui-icon-pencil" update=":formEditar:usuarioEdit" oncomplete="PF('usuarioEditDialog').show()">
                                         <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
@@ -240,7 +240,7 @@ and open the template in the editor.
                                      message="Deseja realmente apagar o usuario #{usuarioBean.selectedObj.nomeUsuario}?" severity="alert" >
                             <h:form id="formExcluir">
                             <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioBean()}"
-                                             oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"/>
+                                             oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable" />
                             <p:commandButton value="Não" icon="ui-icon-closethick" action="#{usuarioBean.cancelRemoverUsuarioBean()}"
                                              oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"
                                              immediate="true"/>
