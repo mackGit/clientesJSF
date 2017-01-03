@@ -8,8 +8,5 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">prcadmin</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <mapping class="br.com.parceriasistemas.jsf.cd.model.Cliente"/>
-    <mapping class="br.com.parceriasistemas.jsf.cd.model.Cidade"/>
-    <mapping class="br.com.parceriasistemas.jsf.cd.model.Usuario"/>
   </session-factory>
 </hibernate-configuration>

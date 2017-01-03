@@ -10,33 +10,32 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    
+
     <h:head>
-        <title>TODO supply a title</title>
+        <title>..:: ClientesJSF ::..</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
+
     <h:body>
         <center>
             <h:form>
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                 <p:panelGrid columns="2" style="margin-top: 15%">
-                    
                     <f:facet name="header">
                         <center>
                             <h:outputText value="Login"/>
                         </center>
                     </f:facet>
-                    
+
                     <p:outputLabel for="loginUsuario" value="Login: " />
-                    <p:inputText id="loginUsuario" value="#{usuarioBean.obj.loginUsuario}"/>
+                    <p:inputText id="loginUsuario" value="#{loginBean.login}"/>
 
                     <p:outputLabel for="senhaUsuario" value="Senha:" />
-                    <p:password id="senhaUsuario" value="#{usuarioBean.obj.senhaUsuario}"/>
+                    <p:password id="senhaUsuario" value="#{loginBean.senha}"/>
 
                     <f:facet name="footer">
                         <center>
-                            <p:commandButton value="Entrar" icon="ui-icon-unlocked"
-                                             action="#{usuarioBean.logarUsuarioBean()}" ajax="false" update=":messages" />
+                            <p:commandButton value="Entrar" icon="ui-icon-unlocked" action="#{loginBean.login()}" ajax="false" update=":messages" />
                         </center>
                     </f:facet>
                 </p:panelGrid>

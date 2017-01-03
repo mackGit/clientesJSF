@@ -24,7 +24,7 @@ and open the template in the editor.
                                       oncomplete= "PF('usuarioAddDialog').show()" 
                                       resetValues="true" immediate="true"
                                       update=":formAdd:usuarioAdd"
-                                      actionListener="#{usuarioBean.limparCamposUsuarioBean()}"/>
+                                      actionListener="#{usuarioBean.criarNovoUsuario()}"/>
                     
                     <!-- Datatable -->
                     <p:dataTable  id="listUsuarioDataTable" value="#{usuarioBean.usuarios}" 
@@ -54,11 +54,11 @@ and open the template in the editor.
                         <p:column headerText="Ações" style="" exportable="false" width="20%">
                             <center>                           
                                 <p:commandButton icon="ui-icon-pencil" update=":formEditar:usuarioEdit" oncomplete="PF('usuarioEditDialog').show()">
-                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuarioSelecionado}" />
                                 </p:commandButton>
                                 
                                 <p:commandButton icon="ui-icon-trash" update=":usuarioRemove" oncomplete="PF('usuarioRemoveDialog').show()">
-                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
+                                        <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.usuarioSelecionado}" />
                                 </p:commandButton>
                             </center>
                         </p:column>
@@ -80,29 +80,29 @@ and open the template in the editor.
                                         </f:facet>
 
                                         <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Nome: "/>
-                                        <p:inputText id="nomeTxt" value="#{usuarioBean.obj.nomeUsuario}" required="true"/>
+                                        <p:inputText id="nomeTxt" value="#{usuarioBean.usuarioSelecionado.nomeUsuario}" required="true"/>
 
                                         <p:outputLabel for="loginTxt" style="font-weight: bold" value="Login: "/>
-                                        <p:inputText id="loginTxt" value="#{usuarioBean.obj.loginUsuario}" required="true"/>
+                                        <p:inputText id="loginTxt" value="#{usuarioBean.usuarioSelecionado.loginUsuario}" required="true"/>
 
                                         <p:outputLabel for="emailTxt" style="font-weight: bold" value="E-mail: "/>
-                                        <p:inputText id="emailTxt" value="#{usuarioBean.obj.emailUsuario}">
+                                        <p:inputText id="emailTxt" value="#{usuarioBean.usuarioSelecionado.emailUsuario}">
                                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                                         </p:inputText>
 
                                         <p:outputLabel for="senhaTxt1" style="font-weight: bold" value="Senha: "/>
-                                        <p:password id="senhaTxt1" value="#{usuarioBean.obj.senhaUsuario}" feedback="true"
+                                        <p:password id="senhaTxt1" value="#{usuarioBean.usuarioSelecionado.senhaUsuario}" feedback="true"
                                                     match="senhaTxt2" label="senhaTxt1" required="true" />
                                         
                                         <p:outputLabel for="senhaTxt2" style="font-weight: bold" value="Senha: "/>
-                                        <p:password id="senhaTxt2" value="#{usuarioBean.obj.senhaUsuario}" label="senhaTxt2"
+                                        <p:password id="senhaTxt2" value="#{usuarioBean.usuarioSelecionado.senhaUsuario}" label="senhaTxt2"
                                                     required="true"/>
                                     </p:panelGrid>
                                 </p:panel>
                                 <br/>
                                 <center>
                                     <p:commandButton value="Adicionar" icon="ui-icon-plus"
-                                                     actionListener="#{usuarioBean.adicionarUsuarioBean()}"
+                                                     actionListener="#{usuarioBean.adicionarNovoUsuario()}"
                                                      oncomplete="if(!args.validationFailed) PF('usuarioAddDialog').hide()"
                                                      update=":form:listUsuarioDataTable :formAdd:usuarioAdd" 
                                                      />
@@ -122,32 +122,31 @@ and open the template in the editor.
                         <p:outputPanel id="usuarioEdit" >
                             <p:panel>
                                 <p:panel>
-                                    <p:panelGrid  columns="4" rendered="#{not empty usuarioBean.selectedObj}">
-                               
+                                    <p:panelGrid columns="4" rendered="#{usuarioBean.usuarioSelecionado != null}">
                                         <f:facet name="header">
                                             <p:outputLabel style="font-weight: bold" value="Edição de Usuarios "/>
                                         </f:facet>
 
                                         <p:outputLabel style="font-weight: bold" value="ID: "/>
-                                        <p:inputText value="#{usuarioBean.selectedObj.idUsuario}" disabled="true"/>
+                                        <p:inputText value="#{usuarioBean.usuarioSelecionado.idUsuario}" disabled="true"/>
 
                                         <p:outputLabel style="font-weight: bold" value="Nome: "/>
-                                        <p:inputText value="#{usuarioBean.selectedObj.nomeUsuario}" required="true"/>
+                                        <p:inputText value="#{usuarioBean.usuarioSelecionado.nomeUsuario}" required="true"/>
 
                                         <p:outputLabel style="font-weight: bold" value="Login: "/>
-                                        <p:inputText value="#{usuarioBean.selectedObj.loginUsuario}" required="true"/>
+                                        <p:inputText value="#{usuarioBean.usuarioSelecionado.loginUsuario}" required="true"/>
 
                                         <p:outputLabel style="font-weight: bold" value="E-mail: "/>
-                                        <p:inputText value="#{usuarioBean.selectedObj.emailUsuario}">
+                                        <p:inputText value="#{usuarioBean.usuarioSelecionado.emailUsuario}">
                                             <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
                                         </p:inputText>
 
                                         <p:outputLabel for="senhaTxt1" style="font-weight: bold" value="Senha: "/>
-                                        <p:password id="senhaTxt1" value="#{usuarioBean.selectedObj.senhaUsuario}" feedback="true"
+                                        <p:password id="senhaTxt1" value="#{usuarioBean.usuarioSelecionado.senhaUsuario}" feedback="true"
                                                     match="senhaTxt2" label="senhaTxt1" required="true"/>
                                         
                                         <p:outputLabel for="senhaTxt2" style="font-weight: bold" value="Senha: "/>
-                                        <p:password id="senhaTxt2" value="#{usuarioBean.selectedObj.senhaUsuario}" feedback="true"
+                                        <p:password id="senhaTxt2" value="#{usuarioBean.usuarioSelecionado.senhaUsuario}" feedback="true"
                                                     match="senhaTxt2" label="senhaTxt2" required="true"/>
 
                                         
@@ -158,14 +157,14 @@ and open the template in the editor.
                                     <f:facet name="footer">
                                         <center>
                                             <p:commandButton value="Atualizar" icon="ui-icon-check"
-                                                             action="#{usuarioBean.atualizarUsuarioBean}"
+                                                             action="#{usuarioBean.alterarUsuarioSelecionado()}"
                                                              oncomplete="if(!args.validationFailed) PF('usuarioEditDialog').hide()"
                                                              update=":form:listUsuarioDataTable :formEditar:usuarioEdit" />
                                             
                                             <p:commandButton value="Cancelar" icon="ui-icon-closethick" immediate="true"
                                                              oncomplete="PF('usuarioEditDialog').hide()"
                                                              update=":form:listUsuarioDataTable" 
-                                                             action="#{usuarioBean.cancelAtualizarUsuarioBean()}"
+                                                             action="#{usuarioBean.cancelarAlteracaoUsuarioSelecionado()}"
                                                              />
                                         </center>
                                     </f:facet>
@@ -177,12 +176,12 @@ and open the template in the editor.
                     
                     
                     <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Usuario -->
-                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" 
-                                     message="Deseja realmente apagar o usuario #{usuarioBean.selectedObj.nomeUsuario}?" severity="alert" >
+                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" appendTo="@(body)"
+                                     message="Deseja realmente apagar o usuario #{usuarioBean.usuarioSelecionado.nomeUsuario}?" severity="alert" >
                             <h:form id="formExcluir">
-                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioBean()}"
+                            <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioSelecionado()}"
                                              oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"/>
-                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{usuarioBean.cancelRemoverUsuarioBean()}"
+                            <p:commandButton value="Não" icon="ui-icon-closethick" action="#{usuarioBean.cancelarRemocaoUsuarioSelecionado()}"
                                              oncomplete="PF('usuarioRemoveDialog').hide()" update=":form:listUsuarioDataTable"
                                              immediate="true"/>
                             </h:form>
