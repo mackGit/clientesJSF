@@ -23,12 +23,7 @@ and open the template in the editor.
                     <p:growl id="msgs" severity="info, warn, error, fatal" autoUpdate="true" showDetail="true" />
                     <!-- Datatable: Botão Add -->
                         <!-- resetValues: Reseta a validação dos campos -->
-                     <p:commandButton style="font-size:14px;" value="Novo Cliente"
-                                      icon="ui-icon ui-icon-plus"
-                                      oncomplete= "PF('clienteAddDialog').show()" 
-                                      resetValues="true" immediate="true"
-                                      update=":formAdd:clienteAdd"
-                                      actionListener="#{clienteBean.limparCamposClienteBean()}"/>
+                    
                     
                     <!-- Datatable -->
                     <p:dataTable  id="listClienteDataTable" value="#{clienteBean.clientes}"
@@ -39,32 +34,40 @@ and open the template in the editor.
                             <div class="exporters">
                                 <h:commandLink>
                                     <p:graphicImage library="img" name="pdf.png" width="24"/>
-                                    <p:dataExporter type="img" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                    <p:dataExporter type="pdf" target="listClienteDataTable" fileName="clientes"/>
                                 </h:commandLink>
 
                                 <h:commandLink>
                                     <p:graphicImage library="img" name="xml.png" width="24"/>
-                                    <p:dataExporter type="xml" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
-                                </h:commandLink>
-
-                                <h:commandLink>
-                                    <p:graphicImage library="img" name="excel.png" width="24"/>
-                                    <p:dataExporter type="xls" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                    <p:dataExporter type="xml" target="listClienteDataTable" fileName="clientes"/>
                                 </h:commandLink>
 
                                 <h:commandLink>
                                     <p:graphicImage library="img" name="csv.png" width="24"/>
-                                    <p:dataExporter type="csv" target="listClienteDataTable" fileName="clientes" options="#{customizedDocumentsView.pdfOpt}"/>
+                                    <p:dataExporter type="csv" target="listClienteDataTable" fileName="clientes"/>
                                 </h:commandLink>
                             </div>
                         </f:facet>
                         
                         
                         <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText value="Procurar: " />
-                                <p:inputText id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" style="width:150px" placeholder="Procurar todos" />
-                            </p:outputPanel>
+                            <p:columnGroup>
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton  style="margin-left: 250px" value="Novo Cliente"
+                                        icon="ui-icon ui-icon-plus"
+                                        oncomplete= "PF('clienteAddDialog').show()" 
+                                        resetValues="true" immediate="true"
+                                        update=":formAdd:clienteAdd"
+                                        actionListener="#{clienteBean.limparCamposClienteBean()}"/>
+                                    </p:column>
+                                    <p:column/>
+
+                                    <p:column>
+                                        <p:inputText style="float:right; padding: 2px; height: 28px; width:250px" id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" placeholder="Procurar em todos os campos" />
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
                         </f:facet>
                         
                         

@@ -10,15 +10,19 @@ import br.com.parceriasistemas.jsf.cd.model.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
 
 @ManagedBean(name="usuarioBean")
-@SessionScoped
+@ViewScoped
 public class UsuarioCon implements Serializable{
     
     //private List<Usuario> usuarios;
@@ -26,9 +30,23 @@ public class UsuarioCon implements Serializable{
     private Usuario obj = new Usuario();
     private Usuario selectedObj;
     private static List<Usuario> usuarios = new ArrayList<Usuario>();
+    private List<Usuario> filteredUsuarios;
     
     private String nomeUsuarioLogado;
     private Integer idUsuarioLogado;
+
+    public UsuarioCon() {
+    }
+    
+    @PostConstruct
+	public void construct() {
+            //code
+            usuarios = dao.getList();
+	}
+	public List<Usuario> getUsuarios() {
+            return usuarios;
+    }
+    
     
     
     
@@ -158,11 +176,7 @@ public class UsuarioCon implements Serializable{
     
     
     /**/
-
-    public List<Usuario> getUsuarios() {
-        usuarios = dao.getList();
-        return usuarios;
-    }
+    
     
     public Usuario getObj() {
         return obj;
@@ -188,6 +202,18 @@ public class UsuarioCon implements Serializable{
     public void setDao(UsuarioDao dao) {
         this.dao = dao;
     }
+
+    public List<Usuario> getFilteredUsuarios() {
+        return filteredUsuarios;
+    }
+
+    public void setFilteredUsuarios(List<Usuario> filteredUsuarios) {
+        this.filteredUsuarios = filteredUsuarios;
+    }
+    
+    
+    
+    
 }
 
     

@@ -15,13 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name="clienteBean")
-@SessionScoped
+@ViewScoped
 public class ClienteCon implements Serializable{    
     
     //private List<Cliente> clientes;

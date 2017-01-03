@@ -19,39 +19,99 @@ and open the template in the editor.
                     <p:growl id="msgs" severity="info, warn, error, fatal" autoUpdate="true" showDetail="true" />
                     <!-- Datatable: Botão Add -->
                         <!-- resetValues: Reseta a validação dos campos -->
-                     <p:commandButton style="font-size:14px;" value="Novo Usuário"
-                                      icon="ui-icon ui-icon-plus"
-                                      oncomplete= "PF('usuarioAddDialog').show()" 
-                                      resetValues="true" immediate="true"
-                                      update=":formAdd:usuarioAdd"
-                                      actionListener="#{usuarioBean.limparCamposUsuarioBean()}"/>
+                     
                     
                     <!-- Datatable -->
-                    <p:dataTable  id="listUsuarioDataTable" value="#{usuarioBean.usuarios}" 
-                                  var="usuario" paginator="true" rows="10"
-                                  style="margin: 20px 100px 20px 100px;" >
+                    <p:dataTable  id="listUsuarioDataTable"
+                                  value="#{usuarioBean.usuarios}" 
+                                  var="usuario"
+                                  paginator="true"
+                                  rows="10"
+                                  style="margin: 20px 100px 20px 100px;" 
+                                  widgetVar="listUsuarioDataTable"
+                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                                  rowsPerPageTemplate="5,10,15"
+                                  filteredValue="#{usuarioBean.filteredUsuarios}"
+                                  sortBy="#{usuario.idUsuario}"
+                                  sortMode="single"
+                                  sortOrder="descending"
+                                  >
+                                  
                         
-                        <f:facet name="header">
-                                Lista de Usuarios
+                        <f:facet name="{Exporters}">
+                            <div class="exporters">
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="listUsuarioDataTable" fileName="usuarios"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="xml.png" width="24"/>
+                                    <p:dataExporter type="xml" target="listUsuarioDataTable" fileName="usuarios"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage library="img" name="csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="listUsuarioDataTable" fileName="usuarios"/>
+                                </h:commandLink>
+                            </div>
                         </f:facet>
                         
+                        
+                        
+                        <f:facet name="header">
+                            <p:columnGroup>
+                                <p:row>
+                                    <p:column>
+                                        <p:commandButton style="margin-left: 250px" value="Novo Usuário"
+                                        icon="ui-icon ui-icon-plus"
+                                        oncomplete= "PF('usuarioAddDialog').show()" 
+                                        resetValues="true" immediate="true"
+                                        update=":formAdd:usuarioAdd"
+                                        actionListener="#{usuarioBean.limparCamposUsuarioBean()}"/>
+                                    </p:column>
+                                    <p:column/>
+
+                                    <p:column>
+                                        <p:inputText style="float:right; padding: 2px; height: 28px; width:250px" id="globalFilter" onkeyup="PF('listUsuarioDataTable').filter()" placeholder="Procurar em todos os campos" />
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+                        </f:facet>
+                        
+                        
                         <!-- Datatable: Colunas -->
-                        <p:column headerText="ID" width="10%">
-                            <p:outputLabel value="#{usuario.idUsuario}" />
+                        <p:column sortBy="#{usuario.idUsuario}" filterBy="#{usuario.idUsuario}" headerText="ID" width="15%">
+                            <f:facet name="header">
+                                <h:outputText value="Id"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.idUsuario}"/>
                         </p:column>
-                        <p:column headerText="Nome" width="20%">
-                            <p:outputLabel value="#{usuario.nomeUsuario}"/>
+                        
+                        <p:column sortBy="#{usuario.nomeUsuario}" filterBy="#{usuario.nomeUsuario}" headerText="Nome" width="20%">
+                            <f:facet name="header">
+                                <h:outputText value="Nome"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.nomeUsuario}"/>
                         </p:column>
-                        <p:column headerText="Login" width="15%">
-                            <p:outputLabel value="#{usuario.loginUsuario}"/>
+                        
+                        <p:column sortBy="#{usuario.loginUsuario}" filterBy="#{usuario.loginUsuario}" headerText="Login" width="15%">
+                            <f:facet name="header">
+                                <h:outputText value="Login"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.loginUsuario}"/>
                         </p:column>
-                        <p:column headerText="E-mail" width="25%" >
-                            <p:outputLabel value="#{usuario.emailUsuario}"/>
+                        
+                        <p:column sortBy="#{usuario.emailUsuario}" filterBy="#{usuario.emailUsuario}" headerText="E-mail" width="25%" >
+                            <f:facet name="header">
+                                <h:outputText value="E-mail"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.emailUsuario}"/>
                         </p:column>
                         
                         
                         <!-- Datatable: Ações -->
-                        <p:column headerText="Ações" style="" exportable="false" width="20%">
+                        <p:column headerText="Ações" style="" exportable="false" width="25%">
                             <center>                           
                                 <p:commandButton icon="ui-icon-pencil" update=":formEditar:usuarioEdit" oncomplete="PF('usuarioEditDialog').show()">
                                         <f:setPropertyActionListener value="#{usuario}" target="#{usuarioBean.selectedObj}" />
@@ -116,8 +176,7 @@ and open the template in the editor.
                     
                     
                     <!-- Caixa Dialogo EDITAR Usuario -->
-                
-                <p:dialog closeOnEscape="true" style="alignment-adjust: central;" widgetVar="usuarioEditDialog" resizable="false">
+                <p:dialog closeOnEscape="true" style="alignment-adjust: central; text-decoration-color: blue;" widgetVar="usuarioEditDialog" resizable="false">
                     <h:form id="formEditar">
                         <p:outputPanel id="usuarioEdit" >
                             <p:panel>
@@ -154,7 +213,7 @@ and open the template in the editor.
                                     </p:panelGrid>
                                 </p:panel>
                                 <br/>
-                                <center>
+                                <p:panel>
                                     <f:facet name="footer">
                                         <center>
                                             <p:commandButton value="Atualizar" icon="ui-icon-check"
@@ -169,7 +228,7 @@ and open the template in the editor.
                                                              />
                                         </center>
                                     </f:facet>
-                                </center>
+                                </p:panel>
                             </p:panel>
                         </p:outputPanel>
                     </h:form>
@@ -177,7 +236,7 @@ and open the template in the editor.
                     
                     
                     <!-- Caixa Dialogo CONFIRMAR EXCLUSÃO Usuario -->
-                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" 
+                    <p:confirmDialog id="usuarioRemove" widgetVar="usuarioRemoveDialog" header="Remoção de usuário" global="true"
                                      message="Deseja realmente apagar o usuario #{usuarioBean.selectedObj.nomeUsuario}?" severity="alert" >
                             <h:form id="formExcluir">
                             <p:commandButton value="Sim" icon="ui-icon-check" action="#{usuarioBean.removerUsuarioBean()}"
