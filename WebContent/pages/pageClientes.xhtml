@@ -138,9 +138,10 @@ and open the template in the editor.
 
                                         <p:outputLabel for="nomeTxt" style="font-weight: bold" value="Nome: "/>
                                         <p:inputText id="nomeTxt" value="#{clienteBean.clienteSelecionado.nomeCliente}" required="true" />
-
+ 
                                         <p:outputLabel for="cpfCnpjTxt" style="font-weight: bold" value="CPF/CNPJ: "/>
-                                        <p:inputMask id="cpfCnpjTxt" value="#{clienteBean.clienteSelecionado.cpfCnpjCliente}" mask="999-999-999.99" required="true"/>
+                                        <p:inputMask id="cpfCnpjTxt" value="#{clienteBean.clienteSelecionado.cpfCnpjCliente}" mask="999-999-999.99" 
+                                                     required="true" validator="cpfValidator"/>
 
                                         <p:outputLabel for="emailTxt" style="font-weight: bold" value="E-mail: "/>
                                         <p:inputText id="emailTxt" value="#{clienteBean.clienteSelecionado.emailCliente}">
