@@ -53,8 +53,9 @@ and open the template in the editor.
                         <f:facet name="header">
                             <p:columnGroup>
                                 <p:row>
+                                    
                                     <p:column>
-                                        <p:commandButton  style="margin-left: 250px" value="Novo Cliente"
+                                        <p:commandButton  style="margin-left: 15%" value="Novo Cliente"
                                         icon="ui-icon ui-icon-plus"
                                         oncomplete= "PF('clienteAddDialog').show()" 
                                         resetValues="true" immediate="true"
@@ -64,7 +65,7 @@ and open the template in the editor.
                                     <p:column/>
 
                                     <p:column>
-                                        <p:inputText style="float:right; padding: 2px; height: 28px; width:250px" id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" placeholder="Procurar em todos os campos" />
+                                        <p:inputText style="float:right; padding: 2px; height: 23px; width:200px" id="globalFilter" onkeyup="PF('listClienteDataTable').filter()" placeholder="Procurar em todos os campos" />
                                     </p:column>
                                 </p:row>
                             </p:columnGroup>
