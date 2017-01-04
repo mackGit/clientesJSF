@@ -250,6 +250,10 @@ public class Cliente implements Serializable{
         return cidadeCliente;
     }
     
+     public String getCidadeClienteString() {
+        return cidadeCliente.getNomeCidade();
+    }
+    
 
     public void setCidadeCliente(Cidade cidadeCliente) {
         this.cidadeCliente = cidadeCliente;
