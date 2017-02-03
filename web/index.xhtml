@@ -5,8 +5,18 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <ui:composition template="resources/template.xhtml">
         <ui:param name="titulo" value="Manutenção de Clientes" />
-        <ui:define name="conteudo">  
-            Index
+        <ui:define name="conteudo">
+            <div class="ui-g section">
+                <div class="ui-g-4 background-test"><div class="card">clientes novos / semana</div></div>
+                <div class="ui-g-4 background-test"><div class="card">Total clientes</div></div>
+                <div class="ui-g-4 background-test"><div class="card">dinheiro ganho / semana<br/> mes</div></div>
+            </div>
+            <div class="ui-g section">
+                <div class="ui-g-3 background-test"><div class="card">Usuarios</div></div>
+                <div class="ui-g-3 background-test"><div class="card">Clientes</div></div>
+                <div class="ui-g-3 background-test"><div class="card">Mensalidades Atrasadas</div></div>
+                <div class="ui-g-3 background-test"><div class="card">Emails</div></div>
+            </div>
         </ui:define>
     </ui:composition>
 </html>

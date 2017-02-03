@@ -20,44 +20,29 @@ and open the template in the editor.
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Minha Aplicacao</title>
         <h:outputStylesheet library="css" name="style.css"  />
+        <script src="https://use.fontawesome.com/e9ed837cd1.js"></script>
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
             
-            <p:layoutUnit  position="north">
+            <p:layoutUnit  position="north" collapsible="true">
                 <center>
-                    <h1>#{titulo}</h1>
+                    gym <h1>#{titulo}</h1>
                 </center>
             </p:layoutUnit>
             
-            <p:layoutUnit  position="west">
-                <p:panelGrid columns="1">
-                    <f:facet name="header">
-                        <center>
-                            <h:outputText value="Bem vindo #{usuarioBean.buscaUsuarioLogado()}"/>
-                        </center>
-                        <center>
-                            <h:form>
-                                <p:commandLink class="boasVindas"
-                                               value="Logout"
-                                               styleClass="styleGreen"
-                                               update=":usuarioLogout"
-                                               oncomplete="PF('usuarioLogoutDialog').show()"/>
-                            </h:form>
-                        </center>
-                    </f:facet>
-
-                    <center>
-                        <p:link value="Usuarios" outcome="usuarios"/>
-                    </center>
-                    <center>
-                        <p:link value="Clientes" outcome="clientes"/>
-                    </center>
-                </p:panelGrid>
+            <p:layoutUnit  position="west" collapsible="true" header="Usuário Logado: #{usuarioBean.buscaUsuarioLogado()}">
+                <h:form id="form-menu">
+                    <p:menu toggleable="true">
+                        <p:menuitem value="Home" outcome="home" icon="fa fa-home" />
+                        <p:submenu label="Controle">
+                            <p:menuitem value="Usuários" outcome="usuarios" icon="fa fa-user" />
+                            <p:menuitem value="Clientes" outcome="clientes" icon="fa fa-smile-o" />
+                            <p:menuitem value="Outros" outcome="home" icon="fa fa-bookmark-o" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
             </p:layoutUnit>
-                            
-                        
-            <br/>
                         
         
         
@@ -90,7 +75,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="NÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
+            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>

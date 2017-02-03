@@ -7,6 +7,8 @@ and open the template in the editor.
     Created on : 23/12/2016, 11:26:09
     Author     : matheus
 */
+.card{ padding: 0 10px; height: 100px; margin: 0 2px; background-color: yellow; }
+
 
 .divTitulo {
     text-align: center;
@@ -18,3 +20,8 @@ and open the template in the editor.
 .currentPageReport {
     float:left;
 }
+
+.background-test{
+    background-color: yellowgreen;
+}
+
