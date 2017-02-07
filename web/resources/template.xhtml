@@ -25,18 +25,18 @@ and open the template in the editor.
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
             
-            <p:layoutUnit  position="north" collapsible="true">
+            <p:layoutUnit  position="north">
                 <center>
-                    gym <h1>#{titulo}</h1>
+                    <h1>#{titulo}</h1>
                 </center>
             </p:layoutUnit>
             
-            <p:layoutUnit  position="west" collapsible="true" header="Usuário Logado: #{usuarioBean.buscaUsuarioLogado()}">
+            <p:layoutUnit  position="west" collapsible="true" header="Menu">
                 <h:form id="form-menu">
                     <p:menu toggleable="true">
                         <p:menuitem value="Home" outcome="home" icon="fa fa-home" />
                         <p:submenu label="Controle">
-                            <p:menuitem value="Usuários" outcome="usuarios" icon="fa fa-user" />
+                            <p:menuitem value="UsuÃ¡rios" outcome="usuarios" icon="fa fa-user" />
                             <p:menuitem value="Clientes" outcome="clientes" icon="fa fa-smile-o" />
                             <p:menuitem value="Outros" outcome="home" icon="fa fa-bookmark-o" />
                         </p:submenu>
@@ -50,21 +50,12 @@ and open the template in the editor.
             <table width="100%" border="0">
                 <tr>
                     <td>
-                        
-                    </td>
-                </tr>
-                <tr>
-                    <td>
                         <ui:insert name="conteudo"/>
                     </td>
                 </tr>
             </table>
         </p:layoutUnit>
         
-        <br />
-        
-        <p:layoutUnit position="south" footer="App ClientesJSF" style="text-align: center;"/>
-    
 </p:layout>
     </h:body>
     
@@ -75,7 +66,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
+            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>

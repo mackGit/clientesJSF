@@ -7,9 +7,98 @@ and open the template in the editor.
     Created on : 23/12/2016, 11:26:09
     Author     : matheus
 */
-.card{ padding: 0 10px; height: 100px; margin: 0 2px; background-color: yellow; }
+
+/* 
+    RESET CSS
+*/
+/*
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+*/
+
+p {
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
 
 
+
+
+
+
+/* cartoes */
+.card-shadow{-webkit-box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.4); -moz-box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.4); box-shadow: 2px 2px 10px 1px rgba(0,0,0,0.4);}
+
+    /* linha 1 cartoes */
+    .card1s{height: 180px; background-color: #ffffff; padding: 15px;}
+    .card1s .titulo {text-align: center; font-size: 24px}
+    .card1s .totalclientes {text-align: center; font-size: 28px}
+    .card1s .paragrafo1 {text-align: left; font-size: 16px; margin:2% 0 0 5%;}
+    .card1s .paragrafo2 {text-align: left; font-size: 16px; margin:0 0 0 5%;}
+    .card1s span, card1s span {font-size: 1.4em}
+    
+    /* linha 2 cartoes */
+    .card2s{background: #ffffff; margin: 0 5px; height: 70px;}
+    .card2s .titulo{padding: 12px 0; text-align: center; font-size: 18px;}
+    .card2s-inset-shadow{height: 100%;-webkit-box-shadow: inset 108px 0px 151px 23px rgba(255,255,255,0.4); -moz-box-shadow: inset 108px 0px 151px 23px rgba(255,255,255,0.4); box-shadow: inset 108px 0px 151px 23px rgba(255,255,255,0.4);}
+    .card-2-1 {background-color: #99a4dd;}
+    .card-2-2 {background-color: #9edd99;}
+    .card-2-3 {background-color: #d5dd99;}
+    .card-2-4 {background-color: #dd9999;}
+    .card2s-icon-background{background-color: #000000; opacity: 0.3; height: 100%;}
+    .card2s-icon{z-index: 500; color:#ffffff; opacity: 1; text-align: center; font-size: 36px}
+    
+
+
+    
+
+    
+    
+    
+    
 .divTitulo {
     text-align: center;
 }
@@ -21,7 +110,7 @@ and open the template in the editor.
     float:left;
 }
 
-.background-test{
-    background-color: yellowgreen;
-}
+
+
+
 
