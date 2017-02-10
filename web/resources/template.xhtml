@@ -14,13 +14,87 @@ and open the template in the editor.
                 xmlns:cc="http://xmlns.jcp.org/jsf/composite">
 
 
-
-    
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <title>Minha Aplicacao</title>
         <h:outputStylesheet library="css" name="style.css"  />
         <script src="https://use.fontawesome.com/e9ed837cd1.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        
+        
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Dia', 'Clientes novos', 'Clientes Desativados'],
+                    ['180', 3, 1],
+                    ['150', 2, 3],
+                    ['120', 4, 2],
+                    ['90', 6, 2],
+                    ['60',  5, 1],
+                    ['30',  7, 3]
+                ]);
+
+                var options = {
+                    title: 'Controle de Clientes',
+                    curveType: 'function',
+                    legend: {position: 'bottom'}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart1'));
+                
+                chart.draw(data, options);
+            }
+            
+            
+            
+            $(window).resize(function(){
+                drawChart();
+            });
+            
+            
+        </script>
+        
+        
+        
+        <script type="text/javascript">
+            google.charts.load('current', {'packages': ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Dia', 'Clientes novos', 'Clientes Desativados'],
+                    ['180', 3, 1],
+                    ['150', 2, 3],
+                    ['120', 4, 2],
+                    ['90', 6, 2],
+                    ['60',  5, 1],
+                    ['30',  7, 3]
+                ]);
+
+                var options = {
+                    title: 'Controle de Clientes',
+                    curveType: 'function',
+                    legend: {position: 'bottom'}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+                
+                chart.draw(data, options);
+            }
+            
+            
+            
+            $(window).resize(function(){
+                drawChart();
+            });
+            
+            
+        </script>
+        
+        
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
@@ -36,7 +110,7 @@ and open the template in the editor.
                     <p:menu toggleable="true">
                         <p:menuitem value="Home" outcome="home" icon="fa fa-home" />
                         <p:submenu label="Controle">
-                            <p:menuitem value="UsuÃ¡rios" outcome="usuarios" icon="fa fa-user" />
+                            <p:menuitem value="UsuÃÂ¡rios" outcome="usuarios" icon="fa fa-user" />
                             <p:menuitem value="Clientes" outcome="clientes" icon="fa fa-smile-o" />
                             <p:menuitem value="Outros" outcome="home" icon="fa fa-bookmark-o" />
                         </p:submenu>
@@ -66,7 +140,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
+            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>
