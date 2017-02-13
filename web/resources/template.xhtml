@@ -24,9 +24,9 @@ and open the template in the editor.
         
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback(drawCrt1);
 
-            function drawChart() {
+            function drawChart1() {
                 var data = google.visualization.arrayToDataTable([
                     ['Dia', 'Clientes novos', 'Clientes Desativados'],
                     ['180', 3, 1],
@@ -48,17 +48,13 @@ and open the template in the editor.
                 chart.draw(data, options);
             }
             
-            
-            
             $(window).resize(function(){
-                drawChart();
-            });
-            
+                drawChart1();
+              });
             
         </script>
         
-        
-        
+        <!--
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -93,24 +89,25 @@ and open the template in the editor.
             
             
         </script>
-        
+       -->
         
     </h:head>
     <h:body rendered="#{usuarioBean.verificarSessao()}">
         <p:layout fullPage="true">
-            
-            <p:layoutUnit  position="north">
-                <center>
-                    <h1>#{titulo}</h1>
-                </center>
+            <p:layoutUnit  position="north" >
+                <div class="top-navbar">
+                    <div class="colapse-leftnav ui-g-1"><center><i class="fa fa-chevron-right" aria-hidden="true"></i></center></div>
+                    <div class="titulo-template ui-g-2"><center>ClientesJSF</center></div>
+                    <div class="ui-g-9"></div>
+                </div>
             </p:layoutUnit>
             
-            <p:layoutUnit  position="west" collapsible="true" header="Menu">
+            <p:layoutUnit  position="west" collapsed="true"  collapsible="true" header="Menu">
                 <h:form id="form-menu">
                     <p:menu toggleable="true">
                         <p:menuitem value="Home" outcome="home" icon="fa fa-home" />
                         <p:submenu label="Controle">
-                            <p:menuitem value="UsuÃÂ¡rios" outcome="usuarios" icon="fa fa-user" />
+                            <p:menuitem value="Usuarios" outcome="usuarios" icon="fa fa-user" />
                             <p:menuitem value="Clientes" outcome="clientes" icon="fa fa-smile-o" />
                             <p:menuitem value="Outros" outcome="home" icon="fa fa-bookmark-o" />
                         </p:submenu>
@@ -140,7 +137,7 @@ and open the template in the editor.
             <p:commandButton value="Sim" icon="ui-icon-check"
                              action="#{usuarioBean.encerrarSessao()}"
                              oncomplete="PF('usuarioLogoutDialog').hide()"/>
-            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
+            <p:commandButton value="NÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ£o" icon="ui-icon-closethick"
                              oncomplete="PF('usuarioLogoutDialog').hide()"
                              immediate="true"/>
         </h:form>

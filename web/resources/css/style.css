@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 23/12/2016, 11:26:09
     Author     : matheus
 */
@@ -11,7 +11,7 @@ and open the template in the editor.
 /* 
     RESET CSS
 */
-/*
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -54,7 +54,7 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-*/
+
 
 p {
     margin: 0;
@@ -64,9 +64,10 @@ p {
     vertical-align: baseline;
 }
 
-
-
-
+/*template*/
+/*top-navbar*/
+    .titulo-template {background-color: white; font-size: 24px; padding: 6px; margin-left: 12px; font-style: italic; font-weight: bold}
+    .top-navbar .colapse-leftnav {font-size: 24px; background-color: white;}
 
 
 /* cartoes */
@@ -95,6 +96,7 @@ p {
 .chart-content {padding: 10px;}
 .chart-background{background-color: #ffffff;}
 .chart2{margin-top: 24px;}
+#curve_chart1{width:100%;}
     
 
     
